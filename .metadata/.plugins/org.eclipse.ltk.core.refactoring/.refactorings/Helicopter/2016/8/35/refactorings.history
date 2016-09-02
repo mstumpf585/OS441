@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;Helicopter/heli.c&apos; to &apos;main.c&apos;" description="Rename resource &apos;heli.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="heli.c" name="main.c" stamp="1472144942314" updateReferences="true"/>
+</session>

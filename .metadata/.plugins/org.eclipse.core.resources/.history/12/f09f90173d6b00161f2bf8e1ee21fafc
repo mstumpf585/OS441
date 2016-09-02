@@ -1,0 +1,56 @@
+/*
+ * heli.c
+ *
+ *  Created on: Aug 25, 2016
+ *      Author: michael
+ */
+
+#include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct flying_data{
+
+
+		int rockets[4];
+		int visibility;
+		char fuel;
+		char pilot_name;
+};
+
+void API(struct flying_data *myHelicopter);
+void API(struct flying_data *myHelicopter){
+
+	weather_input(&myHelicopter);
+
+};
+
+void weather_input(struct flying_data *myHelicopter);
+void weather_input(struct flying_data *myHelicopter){
+
+	int current_visibility;
+	char str[100];
+	printf("enter current visibility: ");
+
+	// get visibility from user
+	current_visibility = atoi(gets(str));
+	myHelicopter->visibility = current_visibility;
+
+	if(myHelicopter->visibility < 60){
+
+		printf("unsafe to fly take off aborted");
+	}
+
+}
+
+
+
+int main(int argc, char* argv[])
+{
+
+	struct flying_data chopper;
+	API(&chopper);
+}
+
+
