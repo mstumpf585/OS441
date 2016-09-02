@@ -8,9 +8,18 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <sys/time.h>
 
 struct workspace{
 	 char grid[4][4];
+};
+
+struct objects{
+
+	int robot_xy[2];
+	int bomb_xy[2];
+	int gold1_xy[2];
+	int gold2_xy[2];
 };
 
 int getRandom(int rangeLow, int rangeHigh)
@@ -66,6 +75,7 @@ void randomGold(struct workspace *workspace_data)
 				conflicts = false;
 			}
 		}
+		conflicts = true;
 		workspace_data->grid[random[0]][random[1]] = 'g';
 	}
 }
@@ -91,6 +101,13 @@ void randomRobot(struct workspace *workspace_data)
 
 }
 
+void move_robot(struct workspace *workspace_data);
+void move_robot(struct workspace *workspace_data){
+
+	//todo move robot around switch statements
+
+}
+
 void make_workspace(struct workspace *workspace_data);
 void make_workspace(struct workspace *workspace_data){
 
@@ -106,7 +123,6 @@ void make_workspace(struct workspace *workspace_data){
 	randomGold(workspace_data);
 	randomRobot(workspace_data);
 	print_grid(workspace_data);
-
 }
 
 
@@ -116,6 +132,11 @@ int main(int argc, char* argv[])
 {
 
 	struct workspace *tester;
+	struct timeval time;
+	gettimeofday(&time, NULL);
+
+	srandom((unsigned int) time.tv_usec);
+
 	tester = malloc(250);
 	printf("here we go \n");
 
