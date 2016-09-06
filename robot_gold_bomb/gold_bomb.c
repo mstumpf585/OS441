@@ -45,8 +45,8 @@ void print_grid(struct workspace *workspace_data){
 
 }
 
-void randomBomb(struct workspace *workspace_data);
-void randomBomb(struct workspace *workspace_data)
+void randomBomb(struct workspace *workspace_data, struct objects *objects);
+void randomBomb(struct workspace *workspace_data, struct objects *objects)
 {
 	int random [2];
 	for(int i =0; i<2;i++)
@@ -54,10 +54,12 @@ void randomBomb(struct workspace *workspace_data)
 		random[i] = getRandom(0,3);
 	}
 	workspace_data->grid[random[0]][random[1]] = 'b';
+	objects->bomb_xy[0]=random[0];
+	objects->bomb_xy[1]=random[1];
 }
 
-void randomGold(struct workspace *workspace_data);
-void randomGold(struct workspace *workspace_data)
+void randomGold(struct workspace *workspace_data, struct objects *objects);
+void randomGold(struct workspace *workspace_data, struct objects *objects)
 {
 	int random [2];
 	bool conflicts = true;
@@ -77,11 +79,21 @@ void randomGold(struct workspace *workspace_data)
 		}
 		conflicts = true;
 		workspace_data->grid[random[0]][random[1]] = 'g';
+		if( i == 0)
+		{
+			objects->gold1_xy[0]=random[0];
+			objects->gold1_xy[1]=random[1];
+		}
+		if( i == 1)
+		{
+			objects->gold2_xy[0]=random[0];
+			objects->gold2_xy[1]=random[1];
+		}
 	}
 }
 
-void randomRobot(struct workspace *workspace_data);
-void randomRobot(struct workspace *workspace_data)
+void randomRobot(struct workspace *workspace_data, struct objects *objects);
+void randomRobot(struct workspace *workspace_data, struct objects *objects)
 {
 	int random [2];
 	bool conflicts = true;
@@ -98,18 +110,20 @@ void randomRobot(struct workspace *workspace_data)
 		}
 	}
 	workspace_data->grid[random[0]][random[1]] = 'r';
+	objects->robot_xy[0]=random[0];
+	objects->robot_xy[1]=random[1];
 
 }
 
-void move_robot(struct workspace *workspace_data);
-void move_robot(struct workspace *workspace_data){
+void move_robot(struct workspace *workspace_data, struct objects *objects);
+void move_robot(struct workspace *workspace_data, struct objects *objects){
 
 	//todo move robot around switch statements
 
 }
 
-void make_workspace(struct workspace *workspace_data);
-void make_workspace(struct workspace *workspace_data){
+void make_workspace(struct workspace *workspace_data, struct objects *objects);
+void make_workspace(struct workspace *workspace_data, struct objects *objects){
 
 	for(int i=0; i<4; i++){
 
@@ -119,9 +133,9 @@ void make_workspace(struct workspace *workspace_data){
 		}
 	}
 
-	randomBomb(workspace_data);
-	randomGold(workspace_data);
-	randomRobot(workspace_data);
+	randomBomb(workspace_data,objects);
+	randomGold(workspace_data,objects);
+	randomRobot(workspace_data,objects);
 	print_grid(workspace_data);
 }
 
@@ -132,6 +146,7 @@ int main(int argc, char* argv[])
 {
 
 	struct workspace *tester;
+	struct objects *objects;
 	struct timeval time;
 	gettimeofday(&time, NULL);
 
