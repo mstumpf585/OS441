@@ -155,6 +155,6 @@ int main(int argc, char* argv[])
 	tester = malloc(250);
 	printf("here we go \n");
 
-	make_workspace(tester);
+	make_workspace(tester,objects);
 	free(tester);
 }
