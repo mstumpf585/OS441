@@ -131,9 +131,10 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 	int xcord = 0;
 	int ycord = 0;
 
-	int random_number = getRandom(0,7);
+	int random_number = 0;
 	while(1){
 
+		random_number = getRandom(0,7);
 		xcord = objects->robot_xy[0];
 		ycord = objects->robot_xy[1];
 
@@ -187,12 +188,18 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 		if(xcord >= 0 && ycord >= 0){
 
 			if(objects->bomb_xy[0] != xcord && objects->bomb_xy[1] != ycord){
+				workspace_data->grid[objects->robot_xy[0]][objects->robot_xy[1]] = '-';
+				workspace_data->grid[xcord][ycord] = 'R';
+				objects->robot_xy[0] = xcord;
+				objects->robot_xy[1] = ycord;
 				break;
+
 			}
 		}
 	}
 
 	printf("xcord = %d and ycord = %d \n", xcord, ycord);
+	print_grid(workspace_data);
 }
 
 void make_workspace(struct workspace *workspace_data, struct objects *objects);
