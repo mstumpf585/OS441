@@ -141,8 +141,46 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 
 			case 7:
 				// up one left one
-				xcord -= xcord;
-				ycord += ycord;
+				xcord -= 1;
+				ycord += 1;
+				break;
+
+			case 6:
+				// up one
+				ycord += 1;
+				break;
+
+			case 5:
+				//up one right one
+				xcord += 1;
+				ycord += 1;
+				break;
+
+			case 4:
+				// left one
+				xcord -= 1;
+				break;
+
+			case 3:
+				// right one
+				xcord += 1;
+				break;
+
+			case 2:
+				//down left
+				xcord -= 1;
+				ycord -= 1;
+				break;
+
+			case 1:
+				// down
+				ycord -= 1;
+				break;
+
+			case 0:
+				// down right
+				xcord += 1;
+				ycord -= 1;
 				break;
 		}
 
