@@ -119,7 +119,40 @@ void move_robot(struct workspace *workspace_data, struct objects *objects);
 void move_robot(struct workspace *workspace_data, struct objects *objects){
 
 	//todo move robot around switch statements
+    // use 0-7 random numbers so we know where to move robot
+    // 765
+    // 4R3
+    // 210
+    
+    // generate random num move to corresponding spot relative to R 
+    // check to see if spot is valid else loop back
+    // implementing now 4:14 pm 9/6
 
+	int xcord = 0;
+	int ycord = 0;
+
+	int random_number = getRandom(0,7);
+	while(1){
+
+		xcord = objects->robot_xy[0];
+		ycord = objects->robot_xy[1];
+
+		switch(random_number){
+
+			case 7:
+				// up one left one
+				xcord -= xcord;
+				ycord += ycord;
+				break;
+		}
+
+		if(xcord >= 0 && ycord >= 0){
+
+			if(objects->bomb_xy[0] != xcord && objects->bomb_xy[1] != ycord){
+				break;
+			}
+		}
+	}
 }
 
 void make_workspace(struct workspace *workspace_data, struct objects *objects);
