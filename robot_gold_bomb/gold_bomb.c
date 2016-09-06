@@ -119,14 +119,14 @@ void move_robot(struct workspace *workspace_data, struct objects *objects);
 void move_robot(struct workspace *workspace_data, struct objects *objects){
 
 	//todo move robot around switch statements
-    // use 0-7 random numbers so we know where to move robot
-    // 765
-    // 4R3
-    // 210
-    
-    // generate random num move to corresponding spot relative to R 
-    // check to see if spot is valid else loop back
-    // implementing now 4:14 pm 9/6
+	// use 0-7 random numbers so we know where to move robot
+	// 765
+	// 4R3
+	// 210
+
+	// generate random num move to corresponding spot relative to R 
+	// check to see if spot is valid else loop back
+	// implementing now 4:14 pm 9/6
 
 	int xcord = 0;
 	int ycord = 0;
@@ -191,6 +191,8 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 			}
 		}
 	}
+
+	printf("xcord = %d and ycord = %d \n", xcord, ycord);
 }
 
 void make_workspace(struct workspace *workspace_data, struct objects *objects);
@@ -216,16 +218,18 @@ void make_workspace(struct workspace *workspace_data, struct objects *objects){
 int main(int argc, char* argv[])
 {
 
-	struct workspace *tester;
-	struct objects *objects;
+	struct workspace *grid;
+	struct objects   *object;
 	struct timeval time;
 	gettimeofday(&time, NULL);
 
 	srandom((unsigned int) time.tv_usec);
 
-	tester = malloc(250);
+	grid = malloc(250);
+	object = malloc(250);
 	printf("here we go \n");
 
-	make_workspace(tester,objects);
-	free(tester);
+	make_workspace(grid,object);
+	move_robot(grid, object);
+	free(grid);
 }
