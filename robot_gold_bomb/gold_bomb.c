@@ -170,9 +170,6 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
                 xcord = objects->robot_xy[1];
                 ycord = objects->robot_xy[0];
 
-                printf("xcord = %d\n", xcord);
-                printf("ycord = %d\n", ycord);
-
                 switch(random_number){
 
                         case 7:
@@ -220,10 +217,7 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
                                 break;
                 }
 
-                printf("debug before ifs xcord = %d ycord = %d\n", xcord, ycord);
                 if((xcord >= 0 && xcord <= 3) && (ycord >= 0 && ycord <= 3)){
-
-                        printf("debug past first if \n");
                         if(workspace_data->grid[ycord][xcord] != 'b'){
 
                                 workspace_data->grid[objects->robot_xy[0]][objects->robot_xy[1]] = '-';
@@ -292,6 +286,7 @@ int main(int argc, char* argv[])
 		move_robot(grid, object);
 		is_gold(object);
 	}
+	printf("All gold found, terminating \n");
 	free(object);
 	free(grid);
 }
