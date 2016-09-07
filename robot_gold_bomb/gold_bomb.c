@@ -237,7 +237,7 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
                 }
         }
 
-        printf("xcord = %d and ycord = %d \n", ycord, xcord);
+        printf("xcord = %d and ycord = %d \n", xcord, ycord);
         print_grid(workspace_data);
 }
 
