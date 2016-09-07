@@ -119,21 +119,22 @@ void move_robot(struct workspace *workspace_data, struct objects *objects);
 void move_robot(struct workspace *workspace_data, struct objects *objects){
 
 	//todo move robot around switch statements
-    // use 0-7 random numbers so we know where to move robot
-    // 765
-    // 4R3
-    // 210
-    
-    // generate random num move to corresponding spot relative to R 
-    // check to see if spot is valid else loop back
-    // implementing now 4:14 pm 9/6
+	// use 0-7 random numbers so we know where to move robot
+	// 765
+	// 4R3
+	// 210
+
+	// generate random num move to corresponding spot relative to R 
+	// check to see if spot is valid else loop back
+	// implementing now 4:14 pm 9/6
 
 	int xcord = 0;
 	int ycord = 0;
 
-	int random_number = getRandom(0,7);
+	int random_number = 0;
 	while(1){
 
+		random_number = getRandom(0,7);
 		xcord = objects->robot_xy[0];
 		ycord = objects->robot_xy[1];
 
@@ -141,18 +142,64 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 
 			case 7:
 				// up one left one
-				xcord -= xcord;
-				ycord += ycord;
+				xcord -= 1;
+				ycord += 1;
+				break;
+
+			case 6:
+				// up one
+				ycord += 1;
+				break;
+
+			case 5:
+				//up one right one
+				xcord += 1;
+				ycord += 1;
+				break;
+
+			case 4:
+				// left one
+				xcord -= 1;
+				break;
+
+			case 3:
+				// right one
+				xcord += 1;
+				break;
+
+			case 2:
+				//down left
+				xcord -= 1;
+				ycord -= 1;
+				break;
+
+			case 1:
+				// down
+				ycord -= 1;
+				break;
+
+			case 0:
+				// down right
+				xcord += 1;
+				ycord -= 1;
 				break;
 		}
 
 		if(xcord >= 0 && ycord >= 0){
 
 			if(objects->bomb_xy[0] != xcord && objects->bomb_xy[1] != ycord){
+				workspace_data->grid[objects->robot_xy[0]][objects->robot_xy[1]] = '-';
+				workspace_data->grid[xcord][ycord] = 'R';
+				objects->robot_xy[0] = xcord;
+				objects->robot_xy[1] = ycord;
 				break;
+
 			}
 		}
 	}
+
+	printf("xcord = %d and ycord = %d \n", xcord, ycord);
+	print_grid(workspace_data);
 }
 
 void make_workspace(struct workspace *workspace_data, struct objects *objects);
@@ -178,16 +225,18 @@ void make_workspace(struct workspace *workspace_data, struct objects *objects){
 int main(int argc, char* argv[])
 {
 
-	struct workspace *tester;
-	struct objects *objects;
+	struct workspace *grid;
+	struct objects   *object;
 	struct timeval time;
 	gettimeofday(&time, NULL);
 
 	srandom((unsigned int) time.tv_usec);
 
-	tester = malloc(250);
+	grid = malloc(250);
+	object = malloc(250);
 	printf("here we go \n");
 
-	make_workspace(tester,objects);
-	free(tester);
+	make_workspace(grid,object);
+	move_robot(grid, object);
+	free(grid);
 }
