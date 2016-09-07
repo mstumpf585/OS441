@@ -166,7 +166,7 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 	// check to see if spot is valid else loop back
 	// implementing now 4:14 pm 9/6
 
-	if(is_still_gold(objects))
+	while(is_still_gold(objects))
 	{
 	int xcord = 0;
 	int ycord = 0;
@@ -241,10 +241,10 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 	printf("xcord = %d and ycord = %d \n", xcord, ycord);
 	check_gold(objects,workspace_data,xcord,ycord);
 	print_grid(workspace_data);
+	delay(500);
 	}
-	else{
-		printf("All gold found");
-	}
+	printf("All gold found");
+	
 }
 
 
