@@ -19,7 +19,9 @@ struct objects{
 	int robot_xy[2];
 	int bomb_xy[2];
 	int gold1_xy[2];
+	bool gold1_found = false;
 	int gold2_xy[2];
+	bool gold2_found = false;
 };
 
 int getRandom(int rangeLow, int rangeHigh)
@@ -115,6 +117,42 @@ void randomRobot(struct workspace *workspace_data, struct objects *objects)
 
 }
 
+
+void check_gold(struct object *object,struct workspace *workspace_data, xcord, ycord);
+void check_gold(struct object *object,struct workspace *workspace_data, xcord, ycord)
+{
+	if((object->gold1_xy[0] == xcord && object->gold1_xy[1] == ycord)||(object->gold2_xy[0] == xcord && object->gold2_xy[1] == ycord))
+	{
+		printf("gold found at %d,%d ",xcord,ycord);
+		workspace_data->grid[xcord][ycord] = '-';
+		
+		if(object->gold1_xy[0] == xcord && object->gold1_xy[1] == ycord)
+		{
+			object->gold1_found = true;
+		}
+		if(object->gold2_xy[0] == xcord && object->gold2_xy[1] == ycord)
+		{
+			object->gold2_found = true;
+		}
+		//todo set a flag as gold 1 or gold 2 found 
+		//will allow us to use/make function is_still_gold
+		
+	}
+}
+
+bool is_still_gold(struct object *object);
+bool is_still_gold(struct object *object)
+{
+	if(object->gold1_found == false || object->gold2_found == false)
+	{
+		return true;
+	}
+	else 
+	{
+		return false;
+	}
+}
+
 void move_robot(struct workspace *workspace_data, struct objects *objects);
 void move_robot(struct workspace *workspace_data, struct objects *objects){
 
@@ -128,6 +166,8 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 	// check to see if spot is valid else loop back
 	// implementing now 4:14 pm 9/6
 
+	if(is_still_gold(objects))
+	{
 	int xcord = 0;
 	int ycord = 0;
 
@@ -199,8 +239,14 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 	}
 
 	printf("xcord = %d and ycord = %d \n", xcord, ycord);
+	check_gold(objects,workspace_data,xcord,ycord);
 	print_grid(workspace_data);
+	}
+	else{
+		printf("All gold found");
+	}
 }
+
 
 void make_workspace(struct workspace *workspace_data, struct objects *objects);
 void make_workspace(struct workspace *workspace_data, struct objects *objects){
