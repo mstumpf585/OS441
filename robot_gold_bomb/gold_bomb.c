@@ -118,38 +118,31 @@ void randomRobot(struct workspace *workspace_data, struct objects *objects)
 }
 
 
-void check_gold(struct object *object,struct workspace *workspace_data, xcord, ycord);
-void check_gold(struct object *object,struct workspace *workspace_data, xcord, ycord)
+void is_gold(struct objects *object);
+void is_gold(struct objects *object)
 {
-	if((object->gold1_xy[0] == xcord && object->gold1_xy[1] == ycord)||(object->gold2_xy[0] == xcord && object->gold2_xy[1] == ycord))
-	{
-		printf("gold found at %d,%d ",xcord,ycord);
-		workspace_data->grid[xcord][ycord] = '-';
-		
-		if(object->gold1_xy[0] == xcord && object->gold1_xy[1] == ycord)
+		if((object->gold1_xy[0] == object->robot_xy[0] && object->gold1_xy[1] == object->robot_xy[1])&& object ->gold1_found == 0)
 		{
-			object->gold1_found = true;
+			printf("gold found at %d,%d \n",object->robot_xy[0],object->robot_xy[1]);
+			object->gold1_found = 1;
 		}
-		if(object->gold2_xy[0] == xcord && object->gold2_xy[1] == ycord)
+		if((object->gold2_xy[0] == object->robot_xy[0] && object->gold2_xy[1] == object->robot_xy[1])&& object ->gold2_found == 0)
 		{
-			object->gold2_found = true;
+			printf("gold found at %d,%d \n",object->robot_xy[0],object->robot_xy[1]);
+			object->gold2_found = 1;
 		}
-		//todo set a flag as gold 1 or gold 2 found 
-		//will allow us to use/make function is_still_gold
-		
-	}
 }
 
-bool is_still_gold(struct object *object);
-bool is_still_gold(struct object *object)
+bool is_still_gold(struct objects *object);
+bool is_still_gold(struct objects *object)
 {
-	if(object->gold1_found == false || object->gold2_found == false)
+	if(object->gold1_found == 0 || object->gold2_found == 0)
 	{
-		return true;
+		return 1;
 	}
 	else 
 	{
-		return false;
+		return 0;
 	}
 }
 
@@ -165,9 +158,6 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 	// generate random num move to corresponding spot relative to R 
 	// check to see if spot is valid else loop back
 	// implementing now 4:14 pm 9/6
-
-	while(is_still_gold(objects))
-	{
 	int xcord = 0;
 	int ycord = 0;
 
@@ -239,12 +229,7 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 	}
 
 	printf("xcord = %d and ycord = %d \n", xcord, ycord);
-	check_gold(objects,workspace_data,xcord,ycord);
 	print_grid(workspace_data);
-	delay(500);
-	}
-	printf("All gold found");
-	
 }
 
 
@@ -282,7 +267,16 @@ int main(int argc, char* argv[])
 	object = malloc(250);
 	printf("here we go \n");
 
+	object->gold1_found = false;
+	object->gold2_found = false;
+
 	make_workspace(grid,object);
-	move_robot(grid, object);
+
+	while(is_still_gold(object)==1)
+	{
+		move_robot(grid, object);
+		is_gold(object);
+	}
+	free(object);
 	free(grid);
 }
