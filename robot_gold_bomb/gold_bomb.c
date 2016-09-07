@@ -158,6 +158,12 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 	// generate random num move to corresponding spot relative to R 
 	// check to see if spot is valid else loop back
 	// implementing now 4:14 pm 9/6
+<<<<<<< HEAD
+=======
+
+	while(is_still_gold(objects))
+	{
+>>>>>>> origin/kevin_desktop_dev
 	int xcord = 0;
 	int ycord = 0;
 
@@ -230,6 +236,13 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 
 	printf("xcord = %d and ycord = %d \n", xcord, ycord);
 	print_grid(workspace_data);
+<<<<<<< HEAD
+=======
+	delay(500);
+	}
+	printf("All gold found");
+	
+>>>>>>> origin/kevin_desktop_dev
 }
 
 
