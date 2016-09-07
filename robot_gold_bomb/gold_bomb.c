@@ -16,12 +16,12 @@ struct workspace{
 
 struct objects{
 
-	int robot_xy[2];
-	int bomb_xy[2];
-	int gold1_xy[2];
-	bool gold1_found = false;
-	int gold2_xy[2];
-	bool gold2_found = false;
+	int  robot_xy[2];
+	int  bomb_xy[2];
+	int  gold1_xy[2];
+	bool gold1_found;
+	int  gold2_xy[2];
+	bool gold2_found;
 };
 
 int getRandom(int rangeLow, int rangeHigh)
@@ -118,38 +118,31 @@ void randomRobot(struct workspace *workspace_data, struct objects *objects)
 }
 
 
-void check_gold(struct object *object,struct workspace *workspace_data, xcord, ycord);
-void check_gold(struct object *object,struct workspace *workspace_data, xcord, ycord)
+void is_gold(struct objects *object);
+void is_gold(struct objects *object)
 {
-	if((object->gold1_xy[0] == xcord && object->gold1_xy[1] == ycord)||(object->gold2_xy[0] == xcord && object->gold2_xy[1] == ycord))
-	{
-		printf("gold found at %d,%d ",xcord,ycord);
-		workspace_data->grid[xcord][ycord] = '-';
-		
-		if(object->gold1_xy[0] == xcord && object->gold1_xy[1] == ycord)
+		if((object->gold1_xy[0] == object->robot_xy[0] && object->gold1_xy[1] == object->robot_xy[1])&& object ->gold1_found == 0)
 		{
-			object->gold1_found = true;
+			printf("gold found at %d,%d \n",object->robot_xy[0],object->robot_xy[1]);
+			object->gold1_found = 1;
 		}
-		if(object->gold2_xy[0] == xcord && object->gold2_xy[1] == ycord)
+		if((object->gold2_xy[0] == object->robot_xy[0] && object->gold2_xy[1] == object->robot_xy[1])&& object ->gold2_found == 0)
 		{
-			object->gold2_found = true;
+			printf("gold found at %d,%d \n",object->robot_xy[0],object->robot_xy[1]);
+			object->gold2_found = 1;
 		}
-		//todo set a flag as gold 1 or gold 2 found 
-		//will allow us to use/make function is_still_gold
-		
-	}
 }
 
-bool is_still_gold(struct object *object);
-bool is_still_gold(struct object *object)
+bool is_still_gold(struct objects *object);
+bool is_still_gold(struct objects *object)
 {
-	if(object->gold1_found == false || object->gold2_found == false)
+	if(object->gold1_found == 0 || object->gold2_found == 0)
 	{
-		return true;
+		return 1;
 	}
 	else 
 	{
-		return false;
+		return 0;
 	}
 }
 
@@ -165,86 +158,93 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 	// generate random num move to corresponding spot relative to R 
 	// check to see if spot is valid else loop back
 	// implementing now 4:14 pm 9/6
-
-	while(is_still_gold(objects))
-	{
 	int xcord = 0;
 	int ycord = 0;
 
 	int random_number = 0;
 	while(1){
 
-		random_number = getRandom(0,7);
-		xcord = objects->robot_xy[0];
-		ycord = objects->robot_xy[1];
 
-		switch(random_number){
+		//scanf("%d", &random_number);
+                random_number = getRandom(0,7);
+                xcord = objects->robot_xy[1];
+                ycord = objects->robot_xy[0];
 
-			case 7:
-				// up one left one
-				xcord -= 1;
-				ycord += 1;
-				break;
+                printf("xcord = %d\n", xcord);
+                printf("ycord = %d\n", ycord);
 
-			case 6:
-				// up one
-				ycord += 1;
-				break;
+                switch(random_number){
+
+                        case 7:
+                                // up one left one
+                                xcord = xcord -  1;
+                                ycord = ycord -  1;
+                                break;
+
+                        case 6:
+                                // up one
+                                ycord -= 1;
+                                break;
 
 			case 5:
-				//up one right one
-				xcord += 1;
-				ycord += 1;
+                                //up one right one
+                                xcord += 1;
+                                ycord -= 1;
+                                break;
+
+                        case 4:
+                                // left one
+                                xcord -= 1;
+                                break;
+
+                        case 3:
+                                // right one
+                                xcord += 1;
+                                break;
+
+                        case 2:
+                                //down left
+                                xcord -= 1;
+                                ycord += 1;
+                                break;
+
+                        case 1:
+                                // down
+                                ycord += 1;
 				break;
 
-			case 4:
-				// left one
-				xcord -= 1;
-				break;
+                        case 0:
+                                // down right
+                                xcord += 1;
+                                ycord += 1;
+                                break;
+                }
 
-			case 3:
-				// right one
-				xcord += 1;
-				break;
+                printf("debug before ifs xcord = %d ycord = %d\n", xcord, ycord);
+                if((xcord >= 0 && xcord <= 3) && (ycord >= 0 && ycord <= 3)){
 
-			case 2:
-				//down left
-				xcord -= 1;
-				ycord -= 1;
-				break;
+                        printf("debug past first if \n");
+                        if(workspace_data->grid[ycord][xcord] != 'b'){
 
-			case 1:
-				// down
-				ycord -= 1;
-				break;
+                                workspace_data->grid[objects->robot_xy[0]][objects->robot_xy[1]] = '-';
+                                workspace_data->grid[ycord][xcord] = 'R';
+                                objects->robot_xy[1] = xcord;
+                                objects->robot_xy[0] = ycord;
+                                break;
 
-			case 0:
-				// down right
-				xcord += 1;
-				ycord -= 1;
-				break;
-		}
+                        }else{
+                                xcord = objects->robot_xy[1];
+                                ycord = objects->robot_xy[0];
+                        }
+                }else{
 
-		if(xcord >= 0 && ycord >= 0){
+                        xcord = objects->robot_xy[1];
+                        ycord = objects->robot_xy[0];
+                }
+        }
 
-			if(objects->bomb_xy[0] != xcord && objects->bomb_xy[1] != ycord){
-				workspace_data->grid[objects->robot_xy[0]][objects->robot_xy[1]] = '-';
-				workspace_data->grid[xcord][ycord] = 'R';
-				objects->robot_xy[0] = xcord;
-				objects->robot_xy[1] = ycord;
-				break;
-
-			}
-		}
-	}
-
-	printf("xcord = %d and ycord = %d \n", xcord, ycord);
-	check_gold(objects,workspace_data,xcord,ycord);
-	print_grid(workspace_data);
-	delay(500);
-	}
-	printf("All gold found");
-	
+        printf("xcord = %d and ycord = %d \n", xcord, ycord);
+        print_grid(workspace_data);
 }
 
 
@@ -282,7 +282,16 @@ int main(int argc, char* argv[])
 	object = malloc(250);
 	printf("here we go \n");
 
+	object->gold1_found = false;
+	object->gold2_found = false;
+
 	make_workspace(grid,object);
-	move_robot(grid, object);
+
+	while(is_still_gold(object)==1)
+	{
+		move_robot(grid, object);
+		is_gold(object);
+	}
+	free(object);
 	free(grid);
 }

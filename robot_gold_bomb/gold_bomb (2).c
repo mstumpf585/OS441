@@ -144,8 +144,11 @@ bool is_still_gold(struct objects *object)
 	{
 		return 0;
 	}
+<<<<<<< HEAD
+=======
 
 	printf("stuck here \n");
+>>>>>>> origin/kevin_desktop_dev
 }
 
 void move_robot(struct workspace *workspace_data, struct objects *objects);
