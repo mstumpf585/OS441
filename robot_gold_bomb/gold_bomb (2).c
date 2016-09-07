@@ -19,9 +19,9 @@ struct objects{
 	int robot_xy[2];
 	int bomb_xy[2];
 	int gold1_xy[2];
-	bool gold1_found = false;
 	int gold2_xy[2];
-	bool gold2_found = false;
+	bool gold1_found;
+	bool gold2_found;
 };
 
 int getRandom(int rangeLow, int rangeHigh)
@@ -158,13 +158,13 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 	// generate random num move to corresponding spot relative to R 
 	// check to see if spot is valid else loop back
 	// implementing now 4:14 pm 9/6
+
 	int xcord = 0;
 	int ycord = 0;
 
 	int random_number = 0;
 	while(1){
-
-		random_number = getRandom(0,7);
+		random_number = getRandom(0,7000)%7;
 		xcord = objects->robot_xy[0];
 		ycord = objects->robot_xy[1];
 
@@ -215,7 +215,7 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 				break;
 		}
 
-		if(xcord >= 0 && ycord >= 0){
+		if((xcord >= 0 && ycord >= 0) && (xcord <= 3 && ycord <= 3)){
 
 			if(objects->bomb_xy[0] != xcord && objects->bomb_xy[1] != ycord){
 				workspace_data->grid[objects->robot_xy[0]][objects->robot_xy[1]] = '-';
@@ -227,10 +227,10 @@ void move_robot(struct workspace *workspace_data, struct objects *objects){
 			}
 		}
 	}
-
-	printf("xcord = %d and ycord = %d \n", xcord, ycord);
+	printf("xcord = %d and ycord = %d \n", ycord, xcord);
 	print_grid(workspace_data);
 }
+	
 
 
 void make_workspace(struct workspace *workspace_data, struct objects *objects);
@@ -259,8 +259,8 @@ int main(int argc, char* argv[])
 	struct workspace *grid;
 	struct objects   *object;
 	struct timeval time;
-	gettimeofday(&time, NULL);
 
+	gettimeofday(&time, NULL);
 	srandom((unsigned int) time.tv_usec);
 
 	grid = malloc(250);
@@ -280,3 +280,4 @@ int main(int argc, char* argv[])
 	free(object);
 	free(grid);
 }
+
