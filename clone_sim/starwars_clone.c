@@ -10,7 +10,7 @@ struct data_clone{
 	int timeCounter;
 };
 
-int  create_clone(struct data_clone *clone);
+void create_clone(struct data_clone *clone);
 void input(struct data_clone *clone, int user_size);
 void life_span(struct data_clone *clone, int user_size);
 
@@ -77,10 +77,10 @@ void input(struct  data_clone *clone, int user_size){
         }
 }
 
-int create_clone(struct data_clone *clone){
+void create_clone(struct data_clone *clone){
 
 	int user_size = 0;
-
+	printf("how many clones do you want");
         scanf("%d", &user_size);
 
         clone = (struct data_clone*) malloc(user_size*sizeof(struct data_clone));
@@ -96,7 +96,6 @@ int create_clone(struct data_clone *clone){
 
 	input(clone, user_size);
 	life_span(clone,user_size);
-	return user_size;
 }
 
 int main(int argc, char* argv[]){
@@ -104,5 +103,5 @@ int main(int argc, char* argv[]){
 	struct data_clone *Aclone;
 	int temp_num;
 
-	temp_num = create_clone(Aclone);
+	create_clone(Aclone);
 }
