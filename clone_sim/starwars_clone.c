@@ -80,7 +80,7 @@ void input(struct  data_clone *clone, int user_size){
 void create_clone(struct data_clone *clone){
 
 	int user_size = 0;
-	printf("how many clones do you want");
+	printf("how many clones do you want?: ");
         scanf("%d", &user_size);
 
         clone = (struct data_clone*) malloc(user_size*sizeof(struct data_clone));
