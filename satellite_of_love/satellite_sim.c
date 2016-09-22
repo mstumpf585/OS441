@@ -3,6 +3,8 @@
 #include <string.h>
 #include <sys/time.h>
 
+#define term_count 10
+
 typedef struct{
 	char name[30];
 	int  active;
@@ -34,6 +36,8 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 void API(data_country *country[], data_canTake *canTake, data_queue *que,
         int total_countries);
 
+
+
 void function_canTake(data_country *country[], data_canTake *canTake,
 	int total_countries){
 
@@ -60,7 +64,27 @@ int random_min_max(int rangeLow, int rangeHigh){
 void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 	int total_countries){
 
-	
+	// change
+	int hour = 0;
+	int que_pointer  = 0;
+	int que_pointer2 = 1;
+
+	data_channel *channel1;
+	data_channel *channel2;
+
+	channel1 = malloc(40);
+	channel2 = malloc(40);
+
+	// should this be random ????
+	channel1->countDown = term_count;
+	channel2->countDown = term_count;
+
+	while(1){
+
+		hour++
+
+
+	}
 
 }
 
@@ -93,6 +117,8 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 		//printf("%d \n", que->waiting_countries[i]);
 		printf("%d is the pack \n",country[que->waiting_countries[i]]->selectedPack);
 	}
+
+	function_canTake(country, canTake,5);
 }
 
 int main(int argc, char* argv[]){
