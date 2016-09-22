@@ -84,6 +84,9 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 		hour++
 
 
+		// mike doesn't know what to do here either 
+		// git is weird
+
 	}
 
 }
