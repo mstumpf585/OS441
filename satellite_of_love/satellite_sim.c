@@ -146,7 +146,6 @@ int main(int argc, char* argv[]){
 
 
 
-
 	free(que);
 	for(int i=0; i<5; i++){
 		free(country[i]);
