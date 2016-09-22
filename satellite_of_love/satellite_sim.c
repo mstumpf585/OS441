@@ -71,8 +71,7 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 
 			if(country[i]->active == 1){
 
-				int random = random_min_max(0,3);
-				country[i]->selectedPack =random+1;
+				country[i]->selectedPack =random_min_max(0,3)+1;
 				que->waiting_countries[que_count] = i;
 				//printf("%d \n", que->waiting_countries[que_count]);
 				que_count++; 
@@ -81,11 +80,11 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 	}
 
 	//test
-	for(int i=0; i<que_count; i++){
+	//for(int i=0; i<que_count; i++){
 		//printf("package %d \n",country[i]->selectedPack); 
 		//printf("%d \n", que->waiting_countries[i]);
-		printf("%s selected pack %d \n",country[que->waiting_countries[i]]->name,country[que->waiting_countries[i]]->selectedPack);
-	}
+		//printf("%s selected pack %d \n",country[que->waiting_countries[i]]->name,country[que->waiting_countries[i]]->selectedPack);
+	//}
 }
 
 int main(int argc, char* argv[]){
