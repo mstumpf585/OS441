@@ -14,7 +14,6 @@ typedef struct{
 }data_canTake;
 
 typedef struct{
-
 	int  waiting_countries[5];
 }data_queue;
 
@@ -28,6 +27,9 @@ void function_canTake(data_country *country[], data_canTake *canTake,
         int total_countries);
 
 int  random_min_max(int rangeLow, int rangeHigh);
+
+void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
+	int total_countries);
 
 void API(data_country *country[], data_canTake *canTake, data_queue *que,
         int total_countries);
@@ -55,10 +57,18 @@ int random_min_max(int rangeLow, int rangeHigh){
 	return myRand_scaled;
 }
 
+void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
+	int total_countries){
+
+	
+
+}
+
 void API(data_country *country[], data_canTake *canTake, data_queue *que,
      	int total_countries){
 
 	int que_count = 0;
+
 	for(int i=0; i<total_countries; i++){
 
 		struct timeval time;
@@ -71,10 +81,8 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 
 			if(country[i]->active == 1){
 
-				//printf("%d \n",i);
 				que->waiting_countries[que_count] = i;
-				//printf("%d \n", que->waiting_countries[que_count]);
-				que_count++; 
+				que_count++;
 			}
 		}
 	}
@@ -100,17 +108,20 @@ int main(int argc, char* argv[]){
 	}
 
 	que = malloc(4);
+	canTake = (data_canTake*) malloc(5*sizeof(data_canTake));
+
 	strcpy(country[0]->name, "USA");
 	strcpy(country[1]->name, "China");
 	strcpy(country[2]->name, "Germany");
 	strcpy(country[3]->name, "Japan");
 	strcpy(country[4]->name, "Switzerland");
 
-	printf("done\n");
 	API(country, canTake, que, 5);
 
-	free(que);
 
+
+
+	free(que);
 	for(int i=0; i<5; i++){
 		free(country[i]);
 	}
