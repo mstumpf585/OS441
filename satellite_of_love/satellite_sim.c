@@ -79,9 +79,14 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 	channel1->countDown = term_count;
 	channel2->countDown = term_count;
 
+	//condition for this while loops should be while transmissionis remaining
 	while(1){
 
 		hour++
+
+		//will have to grab up two elements from queue
+		//decrement them based on time that it takes transmit their payload
+		//whenever a channel is empty, new country from queue will be loaded in
 
 
 		// mike doesn't know what to do here either 
