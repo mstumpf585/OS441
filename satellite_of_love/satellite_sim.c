@@ -163,10 +163,14 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 				que_count++;
 			}
 		}
-
-		printf("number is %d \n",i);
-		printf("%d is the pack for %s\n",country[que->waiting_countries[i]]->selectedPack, country[que->waiting_countries[i]]->name);
 	}
+
+	 //test
+        for(int i=0; i<que_count; i++){
+
+                //printf("%d \n", que->waiting_countries[i]);
+                printf("%d is the pack for %s\n",country[que->waiting_countries[i]]->selectedPack, country[que->waiting_countries[i]]->name);
+        }
 
 	function_canTake(country, canTake,array_size);
 	transmit(country, canTake,que,array_size);
