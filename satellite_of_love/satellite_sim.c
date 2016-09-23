@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
-
+//kevin was here haha
 #define term_count 10
 #define channels 2
 #define array_size 5
