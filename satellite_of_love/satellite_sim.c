@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
-
+//kevin was here haha
 #define term_count 10
 #define channels 2
 #define array_size 5
@@ -129,7 +129,6 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 						return;
 					}else{
 
-						
 					}
 
 				}
@@ -160,19 +159,18 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 			country[i]->selectedPack = random_min_max(0,3)+1;
 
 			if(country[i]->active == 1){
-
 				que->waiting_countries[que_count] = i;
 				que_count++;
 			}
 		}
 	}
 
-	//test
-	for(int i=0; i<que_count; i++){
+	 //test
+        for(int i=0; i<que_count; i++){
 
-		//printf("%d \n", que->waiting_countries[i]);
-		printf("%d is the pack for %s\n",country[que->waiting_countries[i]]->selectedPack, country[que->waiting_countries[i]]->name);
-	}
+                //printf("%d \n", que->waiting_countries[i]);
+                printf("%d is the pack for %s\n",country[que->waiting_countries[i]]->selectedPack, country[que->waiting_countries[i]]->name);
+        }
 
 	function_canTake(country, canTake,array_size);
 	transmit(country, canTake,que,array_size);
