@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
-
+//kevin was here haha
 #define term_count 10
+#define channels 2
+#define array_size 5
 
 typedef struct{
 	char name[30];
@@ -66,32 +68,76 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 
 	// change
 	int hour = 0;
-	int que_pointer  = 0;
-	int que_pointer2 = 1;
+	int que_num[2];
 
-	data_channel *channel1;
-	data_channel *channel2;
+	if(sizeof(que->waiting_countries) !=0){
 
-	channel1 = malloc(40);
-	channel2 = malloc(40);
+		que_num[0] = 0;
+
+		if (sizeof(que->waiting_countries != 0)){
+
+			que_num[1] = 1;
+		}
+	}else{
+
+		// well thats all folks
+		return;
+	}
+
+	data_channel *channel;
+	channel = (data_channel*) malloc(channels*sizeof(data_channel));
+
+	struct timeval time;
+        gettimeofday(&time,NULL);
+        srandom((unsigned int) time.tv_usec);
 
 	// should this be random ????
-	channel1->countDown = term_count;
-	channel2->countDown = term_count;
+	channel[0].countDown = random_min_max(1,10) + 1;
+	channel[1].countDown = random_min_max(1,10) + 1;
 
-	//condition for this while loops should be while transmissionis remaining
+	strcpy(channel[1].country, country[que->waiting_countries[que_num[0]]]->name);
+	strcpy(channel[2].country, country[que->waiting_countries[que_num[1]]]->name);
+
 	while(1){
 
-		hour++
+		hour++;
 
-		//will have to grab up two elements from queue
-		//decrement them based on time that it takes transmit their payload
-		//whenever a channel is empty, new country from queue will be loaded in
+		for(int i=0; i<channels; i++){
 
+			channel[i].countDown--;
 
-		// mike doesn't know what to do here either 
+			printf("%d till death\n", channel[i].countDown);
+
+			if(channel[i].countDown <= 0){
+
+				printf("loading new country\n");
+
+				if(que_num[i] + 1 <= sizeof(que->waiting_countries)){
+
+					printf("in the other thing\n");
+					que_num[i] ++;
+					strcpy(channel[i].country, country[que->waiting_countries[que_num[i]]]->name);
+
+					gettimeofday(&time,NULL);
+					srandom((unsigned int) time.tv_usec);
+					channel[i].countDown = random_min_max(1,10)+1;
+
+				}else{
+
+					if(que_num[i+1] + 1 > sizeof(que->waiting_countries)){
+
+						return;
+					}else{
+
+					}
+
+				}
+			}
+		}
+
+		printf("transmitting for %s and %s\n",channel[1].country, channel[2].country);
+		// mike doesn't know what to do here either
 		// git is weird
-
 	}
 
 }
@@ -111,6 +157,7 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 
 			country[i]->active = random_min_max(0,1);
 			country[i]->selectedPack = random_min_max(0,3)+1;
+
 			if(country[i]->active == 1){
 				que->waiting_countries[que_count] = i;
 				que_count++;
@@ -118,12 +165,11 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 		}
 	}
 
-	//test
-	//for(int i=0; i<que_count; i++){
-		//printf("package %d \n",country[i]->selectedPack); 
-		//printf("%d \n", que->waiting_countries[i]);
-		//printf("%s selected pack %d \n",country[que->waiting_countries[i]]->name,country[que->waiting_countries[i]]->selectedPack);
-	//}
+		printf("%d is the pack for %s\n",country[que->waiting_countries[i]]->selectedPack, country[que->waiting_countries[i]]->name);
+	}
+
+	function_canTake(country, canTake,array_size);
+	transmit(country, canTake,que,array_size);
 }
 
 int main(int argc, char* argv[]){
@@ -139,7 +185,7 @@ int main(int argc, char* argv[]){
 	}
 
 	que = malloc(4);
-	canTake = (data_canTake*) malloc(5*sizeof(data_canTake));
+	canTake = (data_canTake*) malloc(array_size*sizeof(data_canTake));
 
 	strcpy(country[0]->name, "USA");
 	strcpy(country[1]->name, "China");
@@ -147,12 +193,10 @@ int main(int argc, char* argv[]){
 	strcpy(country[3]->name, "Japan");
 	strcpy(country[4]->name, "Switzerland");
 
-	API(country, canTake, que, 5);
-
-
+	API(country, canTake, que, array_size);
 
 	free(que);
-	for(int i=0; i<5; i++){
+	for(int i=0; i<array_size; i++){
 		free(country[i]);
 	}
 }
