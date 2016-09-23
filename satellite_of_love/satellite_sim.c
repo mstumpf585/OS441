@@ -163,7 +163,6 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 				que_count++;
 			}
 		}
-	}
 
 		printf("%d is the pack for %s\n",country[que->waiting_countries[i]]->selectedPack, country[que->waiting_countries[i]]->name);
 	}
