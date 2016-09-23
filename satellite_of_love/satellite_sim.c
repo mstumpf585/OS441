@@ -164,7 +164,8 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 			}
 		}
 
-		printf("%d is the pack for %s\n",country[que->waiting_countries[que_count]]->selectedPack, country[que->waiting_countries[que_count]]->name);
+		printf("number is %d \n",i);
+		printf("%d is the pack for %s\n",country[que->waiting_countries[i]]->selectedPack, country[que->waiting_countries[i]]->name);
 	}
 
 	function_canTake(country, canTake,array_size);
