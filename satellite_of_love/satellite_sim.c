@@ -70,18 +70,18 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 	int hour = 0;
 	int que_num[2];
 
-	if(sizeof(que->waiting_countries) !=0){
+	if(total_countries != 0){
 
 		que_num[0] = 0;
 
-		if (sizeof(que->waiting_countries != 0)){
+		if (total_countries > 1){
 
 			que_num[1] = 1;
 		}
 	}else{
-
+		que_num[1] = 9999;
 		// well thats all folks
-		return;
+		//return;
 	}
 
 	data_channel *channel;
@@ -101,6 +101,8 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 	while(1){
 
 		hour++;
+
+		if(que_num[0] == 9999 && que_num[1] == 9999){return;}
 
 		for(int i=0; i<channels; i++){
 
@@ -123,21 +125,17 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 					channel[i].countDown = random_min_max(1,10)+1;
 
 				}else{
-
+					que_num[i] = 9999;
+					strcpy(channel[i].country,"none");
 					if(que_num[i+1] + 1 > sizeof(que->waiting_countries)){
 
 						return;
-					}else{
-
 					}
-
 				}
 			}
 		}
 
 		printf("transmitting for %s and %s\n",channel[1].country, channel[2].country);
-		// mike doesn't know what to do here either
-		// git is weird
 	}
 
 }
@@ -165,11 +163,15 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 		}
 	}
 
-		printf("%d is the pack for %s\n",country[que->waiting_countries[i]]->selectedPack, country[que->waiting_countries[i]]->name);
-	}
+	 //test
+        for(int i=0; i<que_count; i++){
+
+                //printf("%d \n", que->waiting_countries[i]);
+                printf("%d is the pack for %s\n",country[que->waiting_countries[i]]->selectedPack, country[que->waiting_countries[i]]->name);
+        }
 
 	function_canTake(country, canTake,array_size);
-	transmit(country, canTake,que,array_size);
+	transmit(country, canTake,que,que_count);
 }
 
 int main(int argc, char* argv[]){
