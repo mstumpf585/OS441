@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <sys/time.h>
-//kevin was here haha
+
 #define term_count 10
 #define channels 2
 #define array_size 5
@@ -66,7 +66,6 @@ int random_min_max(int rangeLow, int rangeHigh){
 void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 	int total_countries){
 
-	// change
 	int hour = 0;
 	int que_num[2];
 
@@ -80,9 +79,8 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 		}
 	}else{
 		que_num[1] = 9999;
-		// well thats all folks
-		//return;
 	}
+
 
 	data_channel *channel;
 	channel = (data_channel*) malloc(channels*sizeof(data_channel));
@@ -92,17 +90,21 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
         srandom((unsigned int) time.tv_usec);
 
 	// should this be random ????
-	channel[0].countDown = random_min_max(1,10) + 1;
-	channel[1].countDown = random_min_max(1,10) + 1;
+	channel[0].countDown = 10; //random_min_max(1,10) + 1;
+	channel[1].countDown = 2;  //random_min_max(1,10) + 1;
 
-	strcpy(channel[1].country, country[que->waiting_countries[que_num[0]]]->name);
-	strcpy(channel[2].country, country[que->waiting_countries[que_num[1]]]->name);
+	strcpy(channel[0].country, country[que->waiting_countries[que_num[0]]]->name);
+	strcpy(channel[1].country, country[que->waiting_countries[que_num[1]]]->name);
 
 	while(1){
 
 		hour++;
 
-		if(que_num[0] == 9999 && que_num[1] == 9999){return;}
+		if(que_num[0] == 9999 && que_num[1] == 9999){
+
+			printf("out \n");
+			return;
+		}
 
 		for(int i=0; i<channels; i++){
 
@@ -112,12 +114,13 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 
 			if(channel[i].countDown <= 0){
 
-				printf("loading new country\n");
+				if(que_num[0] != total_countries-1 && que_num[1] != total_countries-1){
 
-				if(que_num[i] + 1 <= sizeof(que->waiting_countries)){
 
-					printf("in the other thing\n");
 					que_num[i] ++;
+
+					printf("loading %s into channel %d \n",country[que->waiting_countries[que_num[i]]]->name, i);
+
 					strcpy(channel[i].country, country[que->waiting_countries[que_num[i]]]->name);
 
 					gettimeofday(&time,NULL);
@@ -127,15 +130,18 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 				}else{
 					que_num[i] = 9999;
 					strcpy(channel[i].country,"none");
-					if(que_num[i+1] + 1 > sizeof(que->waiting_countries)){
 
+					if(que_num[i+1] + 1 > total_countries){
+
+						printf("returning \n");
 						return;
 					}
+
 				}
 			}
 		}
 
-		printf("transmitting for %s and %s\n",channel[1].country, channel[2].country);
+			printf("transmitting for %s and %s\n",channel[0].country, channel[1].country);
 	}
 
 }
