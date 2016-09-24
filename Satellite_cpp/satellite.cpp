@@ -60,7 +60,7 @@ int main()
 	transmit(country, canTake, queue, global_queue);
 
 	cout << "Total Cost " << global_cost << endl;
-	cout << "Total Time " << global_time << "hours" << endl;
+	cout << "Total Time " << global_time << " hours" << endl;
 	cout << "Entering Maintenence Mode" << endl;
 }
 
@@ -121,56 +121,33 @@ void transmit(data_country *country, data_canTake *canTake, data_queue *queue, i
 	//assigns times based off of package selected
 	channel[0].countDown = transmit_time(country[queue->waiting_countries[que_num[0]]].selectedPack);
 	channel[0].country = country[queue->waiting_countries[que_num[0]]].name;
-	//if there is only one country, doing this would throw an out of bounds error
 	if (total_countries != 1)
 	{
 		channel[1].countDown = transmit_time(country[queue->waiting_countries[que_num[1]]].selectedPack);
 		channel[1].country = country[queue->waiting_countries[que_num[1]]].name;
 	}
-
 	while (loop){
 		for (int i = 0; i < CHANNELS; i++){
-			//checks to see if both countDowns are 0 so we don not infinitely loop
 			if (channel[0].countDown == 0 && channel[1].countDown == 0){
-				cout << "both halves have completed" << endl;
 				loop = false;
 			}
-			//checks to see if the current channel is 0 so we don't get an array access error
 			if (channel[i].countDown != 0)
 			{
-				//decrements count
 				channel[i].countDown--;
-				//keeps track of overall time we spent sending transmissions
-				global_time++;
-				//gives status update to the user
-				cout << channel[i].country << " " << channel[i].countDown << " hours till Completition" << endl;
-				//if the channel's count has just hit 0 we need to change countries
-				if (channel[i].countDown <= 0){
-					//inform the user how long and how much that country cost
-					cout << channel[i].country << " took " << transmit_time(country[queue->waiting_countries[que_num[i]]].selectedPack) << " hour and cost " << transit_cost(country[queue->waiting_countries[que_num[i]]].selectedPack) << endl;
-					//checks to make sure que_num[i] will be in bounds and that we have two countries, otherwise no reason to change countries
-					if (que_num[i] + 1 <= total_countries && total_countries !=1){
-						cout << "In change Countries" << endl; 
-
-						//somewhere below here we get an error of trying to access an element ouside of an array and it crashes sometimes, not super consistently
-
-
-						que_num[i] ++;
-						//checks if que_num[i] is still in the valid range of countries
-						if (que_num[i] < total_countries){
-							//checks to see if the channels would have duplicate information placed into them
+				if (channel[i].countDown == 0){
+					cout << channel[i].country << " took " << transmit_time(country[queue->waiting_countries[que_num[i]]].selectedPack) << " hour(s) and cost " << transit_cost(country[queue->waiting_countries[que_num[i]]].selectedPack) << endl;
+					if (que_num[i] <= total_countries -1 && total_countries !=1){
+						if (que_num[i] < total_countries -1)
+							que_num[i] ++;
+						if (que_num[i] < total_countries-1){
 							if (country[queue->waiting_countries[que_num[0]]].name == country[queue->waiting_countries[que_num[1]]].name)
 							{
-								//if the channels would ahve duplicate information placed into them we increment que_num[i] by one more to avoid conflict
 								que_num[i]++;
-								cout << "skipped to next country" << endl;
 							}
-							//informs us that we have successfully changed countries
-							cout << "successfully changed countries" << endl;
-							//puts the name of the new current country into the channel
-							channel[i].country = country[queue->waiting_countries[que_num[i]]].name;
-							//assigns the next transmission time based off the packagge that was selected by that country
-							channel[i].countDown = transmit_time(country[queue->waiting_countries[que_num[i]]].selectedPack);
+							if (que_num[i] < total_countries){
+								channel[i].country = country[queue->waiting_countries[que_num[i]]].name;
+								channel[i].countDown = transmit_time(country[queue->waiting_countries[que_num[i]]].selectedPack);
+							}
 						}
 
 					}
@@ -184,6 +161,7 @@ void transmit(data_country *country, data_canTake *canTake, data_queue *queue, i
 				if (total_countries == 1){ i++; }
 			}
 		}
+		global_time++;
 	}
 
 }
@@ -203,8 +181,6 @@ void API(data_country *country, data_queue *queue)
 			}
 		}
 	}
-
-	//test
 	for (int i = 0; i < queue_count; i++){
 		cout << country[queue->waiting_countries[i]].name << " selected pack " << country[queue->waiting_countries[i]].selectedPack << endl;
 	}
