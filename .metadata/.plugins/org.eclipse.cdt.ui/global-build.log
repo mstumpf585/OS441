@@ -17,3 +17,15 @@ Finished building target: robot_gold_bomb
 14:29:21 **** Incremental Build of configuration Debug for project robot_gold_bomb ****
 make all 
 make: Nothing to be done for 'all'.
+13:11:34 **** Incremental Build of configuration Debug for project robot_gold_bomb ****
+make all 
+Building file: ../gold_bomb.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"gold_bomb.d" -MT"gold_bomb.o" -o "gold_bomb.o" "../gold_bomb.c"
+Finished building: ../gold_bomb.c
+ 
+Building target: robot_gold_bomb
+Invoking: GCC C Linker
+gcc  -o "robot_gold_bomb"  ./gold_bomb.o   
+Finished building target: robot_gold_bomb
+ 
