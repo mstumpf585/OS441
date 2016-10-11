@@ -1,4 +1,4 @@
-//2nd pretest
+ //2nd pretest
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
