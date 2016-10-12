@@ -1,4 +1,4 @@
- //2nd pretest
+//template for Test without all the move function stuff
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,12 +27,11 @@ typedef struct thread{
 // global scope
 struct mutex_shared{
 
-        int BOARD[BoardY][BoardX];
-        int FINISH;
-	int WINNER;
-	int FLAG[2];
-	int CONDITION;
-	char CHARACTER_WITH_CARROT[30];
+        int  BOARD[BoardY][BoardX];
+	int  WINNER;
+	int  FLAG[2];
+	int  CONDITION;
+	char DUDE_WITH_FLAG;
 
 } SHARED_DATA;
 
@@ -42,46 +41,77 @@ void magic(thread_data *objects);
 void printGrid();
 void init_data(thread_data *objects);
 void place(thread_data *objects, int number);
+void move_object(thread_data *objects);
 int  getRandom(int rangeLow, int rangeHigh, struct timeval time);
 
-void magic(thread_data *objects){
+//keep
+void move_object(thread_data *objects){
 
-	pthread_mutex_lock(&object_mutex);
+	struct timeval time;
 
-		// handles Shared_DATA inside lock
-		if(SHARED_DATA.CONDITION == objects->condition){
-
-			SHARED_DATA.CONDITION = objects->thread_num;
-			SHARED_DATA.BOARD[objects->position_xy[1]][objects->position_xy[0]] = '-';
-			place(objects, objects->thread_num);
-			SHARED_DATA.BOARD[objects->position_xy[1]][objects->position_xy[0]] = objects->symbol;
-
-		}
-
-	pthread_mutex_unlock(&object_mutex);
-
-	printf("%s moved to x= %d y= %d \n", objects->character_name, objects->position_xy[0], objects->position_xy[1]);
+        pthread_mutex_lock(&object_mutex);
+        int xcord = 0;
+        int ycord = 0;
+        int random_number = 0;
+     
+	printGrid();
+        pthread_mutex_unlock(&object_mutex);
 }
+
+
 
 //keep
 void *API(void *thread){
 
+	static int count = 0;
         thread_data *objects = (thread_data *)thread;
 
         // do things here
-	while(SHARED_DATA.WINNER != 1){
+	while(count != 5){
 
-		magic(objects);
+		move_object(objects);
 		sleep(2);
-
-		printGrid();
-
+		count++;
 	}
-
-	printf("%s wins", SHARED_DATA.CHARACTER_WITH_CARROT);
 
         pthread_exit(NULL);
 
+}
+
+//keep ONLY USE AT START!!!!!!!!
+void place(thread_data *objects, int number){
+
+	// 1 for x 0 for y 
+	struct timeval time;
+	int randx = getRandom(0,BoardX-1,time);
+	int randy = getRandom(0,BoardY-1,time);
+	int match = 0;
+
+	while(1){
+		for(int i=0; i<number_o_objects; i++){
+
+			// debug: printf("number = %d, i= %d \n", number, i);
+			if(number != i){
+				if(randy == objects[i].position_xy[0] && randx == objects[i].position_xy[1]){
+
+					match = 1;
+				}
+			}
+		}
+
+		if(match == 1){
+			randx = getRandom(0,BoardX-1,time);
+			randy = getRandom(0,BoardY-1,time);
+
+			match = 0;
+		}else{
+
+			objects[number].position_xy[0] = randy;
+			objects[number].position_xy[1] = randx;
+
+			return;
+		}
+	}
 }
 
 //keep
@@ -110,49 +140,14 @@ int getRandom(int rangeLow, int rangeHigh, struct timeval time){
 }
 
 //keep
-void place(thread_data *objects, int number){
-
-	struct timeval time;
-	int randx = getRandom(0,4,time);
-	int randy = getRandom(0,4,time);
-	int match = 0;
-
-	while(1){
-		for(int i=0; i<number_o_objects; i++){
-
-			// debug: printf("number = %d, i= %d \n", number, i);
-			if(number != i){
-				if(randx == objects[i].position_xy[0] && randy == objects[i].position_xy[1]){
-
-					match = 1;
-				}
-			}
-		}
-
-		if(match == 1){
-			randx = getRandom(0,4,time);
-			randy = getRandom(0,4,time);
-
-			match = 0;
-		}else{
-
-			objects[number].position_xy[0] = randx;
-			objects[number].position_xy[1] = randy;
-
-			return;
-		}
-	}
-}
-
 void init_data(thread_data *objects){
 
 	struct timeval time;
 
         //where we handle all info before I spawn threads
+        for(int i=0; i<BoardY; i++){
 
-        for(int i=0; i<5; i++){
-
-		for(int j=0; j<5; j++){
+		for(int j=0; j<BoardX; j++){
 
 			SHARED_DATA.BOARD[i][j] = '-';
 		}
@@ -195,21 +190,23 @@ void init_data(thread_data *objects){
 
 	for(int i=0; i<number_o_objects; i++){
 
-		//srandom((unsigned int) time.tv_usec);
 		place(objects, objects[i].thread_num);
 		printf("name: %s, symbol: %c, thread_num: %d\n", objects[i].character_name, objects[i].symbol, objects[i].thread_num);
-		printf("position 0x = %d position 1y = %d\n", objects[i].position_xy[0], objects[i].position_xy[1]);
+		printf("position 1=x = %d position 0=y = %d\n", objects[i].position_xy[1], objects[i].position_xy[0]);
 		printf("-----------------------------------------------\n");
 	}
 
 	// put all object symbols on board
 	for(int i=0; i<6; i++){
 
-		//1 for y 0 for x
-		SHARED_DATA.BOARD[objects[i].position_xy[1]][objects[i].position_xy[0]] = objects[i].symbol;
+		//0 for y 1 for x
+		SHARED_DATA.BOARD[objects[i].position_xy[0]][objects[i].position_xy[1]] = objects[i].symbol;
 
 	}
 
+
+	SHARED_DATA.FLAG[0] = objects[5].position_xy[0];
+	SHARED_DATA.FLAG[1] = objects[5].position_xy[1];
 
 	printGrid();
 
@@ -219,21 +216,24 @@ void init_data(thread_data *objects){
 int main(int argc, char *argv[]){
 
 	thread_data thread[number_o_objects];
-
         init_data(thread);
+        pthread_mutex_init(&object_mutex, NULL);
 
-//        pthread_mutex_init(&object_mutex, NULL);
 
-//	for(int i=0; i<number_o_threads; i++){
+	//comment out to check to see if init_data works
+	for(int i=0; i<number_o_threads; i++){
 
-//                thread[i].thread_num = i;
-//                pthread_create(&(thread[i].thread_id), NULL, API,(void *)(&thread[i]));
-//        }
+              thread[i].thread_num = i;
+              pthread_create(&(thread[i].thread_id), NULL, API,(void *)(&thread[i]));
+        }
 
-//	for(int i=0; i<number_o_threads; i++){
-//		pthread_join(thread[i].thread_id, NULL);
-//	}
-	//pthread_mutex_destroy(&object_mutex);
+	for(int i=0; i<number_o_threads; i++){
+
+		pthread_join(thread[i].thread_id, NULL);
+	}
+
+	pthread_mutex_destroy(&object_mutex);
+
 	return 0;
 }
 
