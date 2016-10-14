@@ -12,8 +12,6 @@
 #include <pthread.h>
 #include <unistd.h>
 
-int ROBOT_STEPS = 0;
-int CONDITION = 0;
 struct workspace{
 	 char grid[4][4];
 };
@@ -31,7 +29,6 @@ typedef struct thread{
 	pthread_t 	  thread_id;
 	int               thread_num;
 	int               cord_xy[2];
-	int 		  condition;
 	struct objects   *the_objects;
 	struct workspace *the_grid;
 } thread_data;
@@ -171,84 +168,72 @@ bool is_still_gold(struct objects *object)
 void move_robot(thread_data *objects);
 void move_robot(thread_data *objects){
 
-	//todo move robot around switch statements
-	// use 0-7 random numbers so we know where to move robot
-	// 765
-	// 4R3
-	// 210
-
-	// generate random num move to corresponding spot relative to R
-	// check to see if spot is valid else loop back
-	// implementing now 4:14 pm 9/6
-
 	pthread_mutex_lock(&thread_mutex);
-
-	if(CONDITION == objects->condition){
-		int xcord = 0;
-		int ycord = 0;
-		int random_number = 0;
-		int FUCKED = 0;
-		while(1){
-	//*** Error in `./gold_bomb': double free or corruption (!prev): 0x000000000097c010 ***
+	int xcord = 0;
+	int ycord = 0;
+	static int ROBOT_STEPS = 0;
+	int random_number = 0;
+	while(1){
+//*** Error in `./gold_bomb': double free or corruption (!prev): 0x000000000097c010 ***
 
 
-			//scanf("%d", &random_number);
-                	random_number = getRandom(0,7);
-                	xcord = objects->cord_xy[1];
-                	ycord = objects->cord_xy[0];
+		//scanf("%d", &random_number);
+                random_number = getRandom(0,7);
+                xcord = objects->cord_xy[1];
+                ycord = objects->cord_xy[0];
 
-                	switch(random_number){
+                switch(random_number){
 
-                        	case 7:
-                                	// up one left one
-                                	xcord = xcord -  1;
-                                	ycord = ycord -  1;
-                                	break;
+                        case 7:
+                                // up one left one
+                                xcord = xcord -  1;
+                                ycord = ycord -  1;
+                                break;
 
-                        	case 6:
-                                	// up one
-                                	ycord -= 1;
-                                	break;
+                        case 6:
+                                // up one
+                                ycord -= 1;
+                                break;
 
-				case 5:
-                                	//up one right one
-                                	xcord += 1;
-                                	ycord -= 1;
-                                	break;
+			case 5:
+                                //up one right one
+                                xcord += 1;
+                                ycord -= 1;
+                                break;
 
-                        	case 4:
-                                	// left one
-                                	xcord -= 1;
-                                	break;
+                        case 4:
+                                // left one
+                                xcord -= 1;
+                                break;
 
-                        	case 3:
-                                	// right one
-                                	xcord += 1;
-                                	break;
+                        case 3:
+                                // right one
+                                xcord += 1;
+                                break;
 
-                        	case 2:
-                                	//down left
-                                	xcord -= 1;
-                                	ycord += 1;
-                                	break;
+                        case 2:
+                                //down left
+                                xcord -= 1;
+                                ycord += 1;
+                                break;
 
-                        	case 1:
-                                	// down
-                                	ycord += 1;
-					break;
+                        case 1:
+                                // down
+                                ycord += 1;
+				break;
 
-                        	case 0:
-                                	// down right
-                                	xcord += 1;
-                                	ycord += 1;
-                                	break;
-                	}
+                        case 0:
+                                // down right
+                                xcord += 1;
+                                ycord += 1;
+                                break;
+                }
 
-			//debug
-			//printf("here\n");
-	       		if((xcord >= 0 && xcord <= 3) && (ycord >= 0 && ycord <= 3)){
+		//debug
+		//printf("here\n");
+	       	if((xcord >= 0 && xcord <= 3) && (ycord >= 0 && ycord <= 3)){
 
-        	                if(objects->the_grid->grid[ycord][xcord] != 'b' && objects->thread_num == 1){
+        	                if(objects->the_grid->grid[ycord][xcord] != 'b' && (ROBOT_STEPS <2) && objects->thread_num == 1){
 
 					objects->the_grid->grid[objects->cord_xy[0]][objects->cord_xy[1]] = '-';
         	                        objects->the_grid->grid[ycord][xcord] = 'R';
@@ -256,7 +241,6 @@ void move_robot(thread_data *objects){
 					objects->cord_xy[1] = xcord;
 	                                objects->cord_xy[0] = ycord;
 					ROBOT_STEPS ++;
-					printf("%d \n", ROBOT_STEPS);
 	                                break;
 
 	                        }else if(objects->the_grid->grid[ycord][xcord] != 'R' && objects->thread_num == 0 && objects->the_grid->grid[ycord][xcord] != 'g'){
@@ -266,35 +250,25 @@ void move_robot(thread_data *objects){
 
 					objects->cord_xy[1] = xcord;
 					objects->cord_xy[0] = ycord;
-					CONDITION = objects->thread_num;
+					ROBOT_STEPS = 0;
 					break;
 				}else{
-					printf("no condition\n");
-					printf("counts = %d\n", FUCKED);
 	                                xcord = objects->cord_xy[1];
 	                                ycord = objects->cord_xy[0];
-					FUCKED++;
-					if(FUCKED >5)
-					break;
 	                        }
-			}else{
+		}else{
 
-				xcord = objects->cord_xy[1];
-	                	ycord = objects->cord_xy[0];
-	        	}
+			xcord = objects->cord_xy[1];
+	                ycord = objects->cord_xy[0];
+	        }
 
-
-		}
-
-		printf("%d = robot steps for thread %d \n", ROBOT_STEPS, objects->thread_num);
-        	printf("xcord = %d and ycord = %d \n", xcord, ycord);
-        	print_grid(objects->the_grid);
-		if(ROBOT_STEPS == 2){
-			ROBOT_STEPS = 0;
-			CONDITION = objects->thread_num;
-		}
 
 	}
+
+	printf("%d = robot steps for thread %d \n", ROBOT_STEPS, objects->thread_num);
+        printf("xcord = %d and ycord = %d \n", xcord, ycord);
+        print_grid(objects->the_grid);
+
 	pthread_mutex_unlock(&thread_mutex);
 }
 
@@ -366,8 +340,6 @@ int main(int argc, char* argv[])
 	object->gold1_found = false;
 	object->gold2_found = false;
 
-	thread[0].condition = 1;
-	thread[1].condition = 0;
 	make_workspace(thread, grid, object);
 	init(thread, object, grid);
 

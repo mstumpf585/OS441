@@ -12,6 +12,7 @@
 #define BoardX           5  // how many units in the x direction the graph is
 #define BoardY           5  // same as above but y
 
+int count = 0;
 // what you pass to thread
 typedef struct thread{
 
@@ -31,7 +32,10 @@ struct mutex_shared{
 	int  WINNER;
 	int  FLAG[2];
 	int  CONDITION;
-	char DUDE_WITH_FLAG;
+	int  CARROT1[2];
+	int  CARROT2[2];
+	int  MOUNTAIN[2];
+	int  WHO_DEAD[4];
 
 } SHARED_DATA;
 
@@ -43,152 +47,199 @@ void init_data(thread_data *objects);
 void place(thread_data *objects, int number);
 void move_object(thread_data *objects);
 void kill_toon(thread_data *objects, int ycord, int xcord);
+void clear(thread_data *objects, int ycord, int xcord);
+void move_mountain(int ycord, int xcord);
 int  getRandom(int rangeLow, int rangeHigh, struct timeval time);
 
+//don't keep
+void move_mountain(int ycord, int xcord){
+
+	SHARED_DATA.BOARD[SHARED_DATA.MOUNTAIN[0]][SHARED_DATA.MOUNTAIN[1]] = '-';
+	SHARED_DATA.MOUNTAIN[0] = ycord;
+	SHARED_DATA.MOUNTAIN[1] = xcord;
+
+	SHARED_DATA.BOARD[ycord][xcord] = 'F';
+
+	//debug
+	printf("mountain at x=%d, y=%d\n", xcord, ycord);
+}
+
 //dont need to keep just to help with kill toons for midterm 2
-//keep
 void kill_toon(thread_data *objects, int ycord, int xcord){
 
-	int dead_object = NULL;
+	int dead_object = 0;
+
+	char dead_character[30];
 
 	switch(SHARED_DATA.BOARD[ycord][xcord]){
 
 		case 'B':
 			dead_object = 0;
+			strcpy(dead_character,"Bunny");
 			break;
 
-		case 'T'
+		case 'D':
 			dead_object = 1;
+			strcpy(dead_character,"Taz");
+			break;
+
+		case 'T':
+			dead_object = 2;
+			strcpy(dead_character,"Tweety");
 			break;
 	}
+
+	SHARED_DATA.WHO_DEAD[dead_object] = 0;
+	SHARED_DATA.BOARD[ycord][xcord] = 'C';
+	printf("%s is dead\n",dead_character);
+}
+
+// don't keep
+void clear(thread_data *objects, int ycord, int xcord ){
+
+	SHARED_DATA.BOARD[objects->position_xy[0]][objects->position_xy[1]] = '-';
+        objects->position_xy[0] = ycord;
+        objects->position_xy[1] = xcord;
+        SHARED_DATA.BOARD[ycord][xcord] = objects->symbol;
 }
 
 //keep
 void move_object(thread_data *objects){
 
-	struct timeval time;
+	pthread_mutex_lock(&object_mutex);
 
-        pthread_mutex_lock(&object_mutex);
-        int xcord = 0;
-        int ycord = 0;
-        int random_number = 0;
-        while(1){
+	if(SHARED_DATA.CONDITION == objects->condition){
 
-                random_number = getRandom(0,7,time);
-                xcord = objects->position_xy[1];
-                ycord = objects->position_xy[0];
+		SHARED_DATA.CONDITION = objects->thread_num;
 
-                switch(random_number){
+		struct timeval time;
 
-                        case 7:
-                                // up one left one
-                                xcord = xcord -  1;
-                                ycord = ycord -  1;
-                                break;
+        	int xcord = 0;
+        	int ycord = 0;
+        	int random_number = 0;
+        	while(1){
 
-                        case 6:
-                                // up one
-                                ycord -= 1;
-                                break;
+                	random_number = getRandom(0,7,time);
+                	xcord = objects->position_xy[1];
+                	ycord = objects->position_xy[0];
 
-                        case 5:
-                                //up one right one
-                                xcord += 1;
-                                ycord -= 1;
-                                break;
+                	switch(random_number){
 
-                        case 4:
-				 // left one
-                                xcord -= 1;
-                                break;
+                        	case 7:
+                                	// up one left one
+                                	xcord = xcord -  1;
+                                	ycord = ycord -  1;
+                                	break;
 
-                        case 3:
-                                // right one
-                                xcord += 1;
-                                break;
+                        	case 6:
+                                	// up one
+                                	ycord -= 1;
+                                	break;
 
-                        case 2:
-                                //down left
-                                xcord -= 1;
-                                ycord += 1;
-                                break;
+                        	case 5:
+                                	//up one right one
+                                	xcord += 1;
+                                	ycord -= 1;
+                                	break;
 
-                        case 1:
-                                // down
-                                ycord += 1;
-                                break;
+                        	case 4:
+				 	// left one
+                                	xcord -= 1;
+                                	break;
 
-                        case 0:
-                                // down right
-                                xcord += 1;
-                                ycord += 1;
-		}
+                        	case 3:
+                                	// right one
+                                	xcord += 1;
+                                	break;
 
-                //debug
-                //printf("here\n");
-                if((xcord >= 0 && xcord < BoardX) && (ycord >= 0 && ycord < BoardY)){
+                        	case 2:
+                                	//down left
+                                	xcord -= 1;
+                                	ycord += 1;
+                                	break;
 
-			if(SHARED_DATA.BOARD[ycord][xcord] =='-' && objects->symbol != 'M'){
+                        	case 1:
+                                	// down
+                                	ycord += 1;
+                                	break;
 
-				SHARED_DATA.BOARD[objects->position_xy[0]][objects->position_xy[1]] = '-';
-				objects->position_xy[0] = ycord;
-				objects->position_xy[1] = xcord;
-				SHARED_DATA.BOARD[ycord][xcord] = objects->symbol;
-				break;
-
-			}else if(SHARED_DATA.BOARD[ycord][xcord] == 'C'){
-
-				if(objects[5].position_xy[0] == ycord && objects[5].position_xy[1] == xcord){
-
-					SHARED_DATA.FLAG[0] = objects->thread_num;
-				}else{
-
-					SHARED_DATA.FLAG[1] = objects->thread_num;
-				}
-				printf("%s has the flag\n", objects->character_name);
-
-				SHARED_DATA.BOARD[objects->position_xy[0]][objects->position_xy[1]] = '-';
-                                objects->position_xy[0] = ycord;
-                                objects->position_xy[1] = xcord;
-                                SHARED_DATA.BOARD[ycord][xcord] = objects->symbol;
-
-				break;
-
-			}else if((SHARED_DATA.BOARD[ycord][xcord] == 'F') && (objects->thread_num == SHARED_DATA.FLAG[0] || objects->thread_num == SHARED_DATA.FLAG[1])){
-
-				SHARED_DATA.BOARD[objects->position_xy[0]][objects->position_xy[1]] = '-';
-                                objects->position_xy[0] = ycord;
-                                objects->position_xy[1] = xcord;
-                                SHARED_DATA.BOARD[ycord][xcord] = objects->symbol;
-
-				printf("%s just won", objects->character_name);
-
-			}else if((SHARED_DATA.BOARD[ycord][xcord] != 'F' || SHARED_DATA.BOARD[ycord][xcord] != 'C') && objects->symbol == 'M' ){
-
-				if(SHARED_DATA.BOARD[ycord][xcord] != '-'){
-
-					//find who to kill
-					kill_toon(objects, ycord, xcord);
-				}else{
-
-					SHARED_DATA.BOARD[objects->position_xy[0]][objects->position_xy[1]] = '-';
-                                	objects->position_xy[0] = ycord;
-                                	objects->position_xy[1] = xcord;
-                                	SHARED_DATA.BOARD[ycord][xcord] = objects->symbol;
-				}
-			}else{
-
-				ycord = objects->position_xy[0];
-				xcord = objects->position_xy[1];
+                        	case 0:
+                                	// down right
+                                	xcord += 1;
+                                	ycord += 1;
 			}
 
-       	 	}
-	}
+                	//debug
+                	//printf("here\n"); 
+                	if((xcord >= 0 && xcord < BoardX) && (ycord >= 0 && ycord < BoardY)){
 
-	printGrid();
-	printf("%s moved to x= %d, y= %d\n",objects->character_name, xcord, ycord);
-	printf("--------------------------\n");
-        pthread_mutex_unlock(&object_mutex);
+
+
+				if(SHARED_DATA.BOARD[ycord][xcord] =='-' && objects->symbol != 'M' && SHARED_DATA.WHO_DEAD[objects->thread_num] == 1){
+
+					clear(objects, ycord, xcord);
+					break;
+
+				}else if(SHARED_DATA.BOARD[ycord][xcord] == 'C' && SHARED_DATA.WHO_DEAD[objects->thread_num] == 1){
+
+					clear(objects, ycord, xcord);
+					if(SHARED_DATA.CARROT1[0] == ycord && SHARED_DATA.CARROT1[1] == xcord){
+
+						SHARED_DATA.FLAG[0] = objects->thread_num;
+					}else{
+
+						SHARED_DATA.FLAG[1] = objects->thread_num;
+					}
+
+					printf("%s , thread num = %d has the flag\n", objects->character_name, objects->thread_num);
+					break;
+
+				}else if((SHARED_DATA.BOARD[ycord][xcord] == 'F') && (objects->thread_num == SHARED_DATA.FLAG[0] || objects->thread_num == SHARED_DATA.FLAG[1])){
+
+					clear(objects, ycord, xcord);
+					printf("%s just won\n", objects->character_name);
+					SHARED_DATA.WINNER = 1;
+					break;
+
+				}else if((SHARED_DATA.BOARD[ycord][xcord] != 'F' && SHARED_DATA.BOARD[ycord][xcord] != 'C') && objects->symbol == 'M' ){
+
+					if(SHARED_DATA.BOARD[ycord][xcord] != '-'){
+
+						// need to add more here
+						// find who to kill
+						printf("%c is the symbol before death\n", SHARED_DATA.BOARD[ycord][xcord]);
+						kill_toon(objects, ycord, xcord);
+						break;
+					}else{
+
+						clear(objects, ycord, xcord);
+						break;
+					}
+					printf("moving mountain \n");
+					move_mountain(ycord, xcord);
+					break;
+
+				}else if(SHARED_DATA.WHO_DEAD[objects->thread_num] == 0){
+
+					printf("%s is dead skipping turn \n",objects->character_name);
+					break;
+				}
+				else{
+					printf("no condition\n");
+					ycord = objects->position_xy[0];
+					xcord = objects->position_xy[1];
+				}
+
+
+       	 		}
+		}
+
+		printGrid();
+		printf("%s moved to x= %d, y= %d\n",objects->character_name, xcord, ycord);
+		printf("--------------------------\n");
+
+	}
+	pthread_mutex_unlock(&object_mutex);
 }
 
 
@@ -200,11 +251,11 @@ void *API(void *thread){
         thread_data *objects = (thread_data *)thread;
 
         // do things here
-	while(count != 5){
+	while(SHARED_DATA.WINNER != 1){
 
+		//printf("here\n");
 		move_object(objects);
 		sleep(2);
-		count++;
 	}
 
         pthread_exit(NULL);
@@ -214,7 +265,7 @@ void *API(void *thread){
 //keep ONLY USE AT START!!!!!!!!
 void place(thread_data *objects, int number){
 
-	// 1 for x 0 for y 
+	// 1 for x 0 for y
 	struct timeval time;
 	int randx = getRandom(0,BoardX-1,time);
 	int randy = getRandom(0,BoardY-1,time);
@@ -345,9 +396,20 @@ void init_data(thread_data *objects){
 	}
 
 
-	SHARED_DATA.FLAG[0] = objects[5].position_xy[0];
-	SHARED_DATA.FLAG[1] = objects[5].position_xy[1];
+	//did not think ahead so its dumb ...
+	SHARED_DATA.WHO_DEAD[0] = 1;
+	SHARED_DATA.WHO_DEAD[1] = 1;
+	SHARED_DATA.WHO_DEAD[2] = 1;
+	SHARED_DATA.WHO_DEAD[3] = 1;
 
+	SHARED_DATA.CARROT1[0] = objects[5].position_xy[0];
+	SHARED_DATA.CARROT1[1] = objects[5].position_xy[1];
+
+	SHARED_DATA.CARROT2[0] = objects[6].position_xy[0];
+	SHARED_DATA.CARROT2[1] = objects[6].position_xy[1];
+
+	SHARED_DATA.MOUNTAIN[0] = objects[4].position_xy[0];
+	SHARED_DATA.MOUNTAIN[1] = objects[4].position_xy[1];
 	printGrid();
 
 }
