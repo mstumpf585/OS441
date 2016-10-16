@@ -8,6 +8,7 @@ typedef struct country {
 	string name;
 	int active;
 	int selectedPack;
+	bool has_tansmitted;
 }data_country;
 
 typedef struct queue {
@@ -118,7 +119,6 @@ void transmit(data_country *country, data_canTake *canTake, data_queue *queue, i
 	data_channel *channel;
 	channel = new data_channel[2];
 
-	//assigns times based off of package selected
 	channel[0].countDown = transmit_time(country[queue->waiting_countries[que_num[0]]].selectedPack);
 	channel[0].country = country[queue->waiting_countries[que_num[0]]].name;
 	if (total_countries != 1)
@@ -126,6 +126,7 @@ void transmit(data_country *country, data_canTake *canTake, data_queue *queue, i
 		channel[1].countDown = transmit_time(country[queue->waiting_countries[que_num[1]]].selectedPack);
 		channel[1].country = country[queue->waiting_countries[que_num[1]]].name;
 	}
+	bool has_counted = false;
 	while (loop){
 		for (int i = 0; i < CHANNELS; i++){
 			if (channel[0].countDown == 0 && channel[1].countDown == 0){
@@ -133,18 +134,24 @@ void transmit(data_country *country, data_canTake *canTake, data_queue *queue, i
 			}
 			if (channel[i].countDown != 0)
 			{
+				has_counted = true;
 				channel[i].countDown--;
+				cout << channel[i].country << " " << channel[i].countDown << " hours till Completition" << endl;
 				if (channel[i].countDown == 0){
+					country[queue->waiting_countries[que_num[i]]].has_tansmitted = true;
 					cout << channel[i].country << " took " << transmit_time(country[queue->waiting_countries[que_num[i]]].selectedPack) << " hour(s) and cost " << transit_cost(country[queue->waiting_countries[que_num[i]]].selectedPack) << endl;
 					if (que_num[i] <= total_countries -1 && total_countries !=1){
 						if (que_num[i] < total_countries -1)
 							que_num[i] ++;
-						if (que_num[i] < total_countries-1){
-							if (country[queue->waiting_countries[que_num[0]]].name == country[queue->waiting_countries[que_num[1]]].name)
+						if (country[queue->waiting_countries[que_num[0]]].name == country[queue->waiting_countries[que_num[1]]].name)
 							{
 								que_num[i]++;
 							}
+						if (que_num[i] < total_countries-1){
+							if (country[queue->waiting_countries[que_num[i]]].has_tansmitted == true)
+								que_num[i] ++;
 							if (que_num[i] < total_countries){
+								cout << "successfully changed countries in channel " << i << endl;
 								channel[i].country = country[queue->waiting_countries[que_num[i]]].name;
 								channel[i].countDown = transmit_time(country[queue->waiting_countries[que_num[i]]].selectedPack);
 							}
@@ -161,7 +168,11 @@ void transmit(data_country *country, data_canTake *canTake, data_queue *queue, i
 				if (total_countries == 1){ i++; }
 			}
 		}
-		global_time++;
+		if (has_counted)
+		{
+			global_time++;
+			has_counted == false;
+		}
 	}
 
 }
@@ -173,7 +184,7 @@ void API(data_country *country, data_queue *queue)
 	srand(time(NULL));
 	for (int i = 0; i < NUM_COUNTRIES; i++){
 		if (country[i].active == 0){
-			country[i].active = rand() % 2;
+			country[i].active = 1; // rand() % 2;
 			country[i].selectedPack = rand() % 4 + 1;
 			if (country[i].active == 1){
 				queue->waiting_countries[queue_count] = i;
