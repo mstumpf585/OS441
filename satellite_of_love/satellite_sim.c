@@ -14,10 +14,6 @@ typedef struct{
 }data_country;
 
 typedef struct{
-	int available;
-}data_canTake;
-
-typedef struct{
 	int  waiting_countries[5];
 }data_queue;
 
@@ -27,33 +23,14 @@ typedef struct{
 
 }data_channel;
 
-void function_canTake(data_country *country[], data_canTake *canTake,
-        int total_countries);
-
 int  random_min_max(int rangeLow, int rangeHigh);
 
-void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
+void transmit(data_country *country[], data_queue *que,
 	int total_countries);
 
-void API(data_country *country[], data_canTake *canTake, data_queue *que,
+void API(data_country *country[], data_queue *que,
         int total_countries);
 
-
-
-void function_canTake(data_country *country[], data_canTake *canTake,
-	int total_countries){
-
-	for(int i=0; i<total_countries; i++){
-
-		if(country[i]->active){
-			canTake[i].available = country[i]->active;
-		}else{
-
-			canTake[i].available= (int)0;
-		}
-	}
-
-}
 
 int random_min_max(int rangeLow, int rangeHigh){
 
@@ -63,11 +40,51 @@ int random_min_max(int rangeLow, int rangeHigh){
 	return myRand_scaled;
 }
 
-void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
+int get_countDown(int selected_pack){
+
+	switch (selected_pack){
+
+		case 1:
+			return 1;
+
+		case 2:
+			return 3;
+
+		case 3:
+			return 5;
+
+		case 4:
+			return 10;
+
+	}
+
+}
+
+int get_cash(int selected_pack){
+
+	switch(selected_pack){
+
+		case 1:
+			return 210;
+
+		case 2:
+			return 350;
+
+		case 3:
+			return 400;
+
+		case 4:
+			return 500;
+	}
+
+}
+
+void transmit(data_country *country[], data_queue *que,
 	int total_countries){
 
 	int hour = 0;
 	int que_num[2];
+	int total_profit = 0;
 
 	if(total_countries != 0){
 
@@ -89,9 +106,8 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
         gettimeofday(&time,NULL);
         srandom((unsigned int) time.tv_usec);
 
-	// should this be random ????
-	channel[0].countDown = 10; //random_min_max(1,10) + 1;
-	channel[1].countDown = 2;  //random_min_max(1,10) + 1;
+	channel[0].countDown = get_countDown(country[que->waiting_countries[que_num[0]]]->selectedPack);
+	channel[1].countDown = get_countDown(country[que->waiting_countries[que_num[1]]]->selectedPack);
 
 	strcpy(channel[0].country, country[que->waiting_countries[que_num[0]]]->name);
 	strcpy(channel[1].country, country[que->waiting_countries[que_num[1]]]->name);
@@ -102,7 +118,8 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 
 		if(que_num[0] == 9999 && que_num[1] == 9999){
 
-			printf("out \n");
+			printf("No more countries profit == $%d \ntotal hours == %d \n",total_profit, hour);
+			free(channel);
 			return;
 		}
 
@@ -127,13 +144,21 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 					srandom((unsigned int) time.tv_usec);
 					channel[i].countDown = random_min_max(1,10)+1;
 
+					total_profit += get_cash(country[que->waiting_countries[que_num[i]]]->selectedPack) * hour;
+					printf("total profit so far is $%d \n", total_profit);
+
 				}else{
 					que_num[i] = 9999;
 					strcpy(channel[i].country,"none");
 
+					total_profit += get_cash(country[que->waiting_countries[que_num[i]]]->selectedPack) * hour;
+                                        printf("total profit so far is $%d \n", total_profit);
+
 					if(que_num[i+1] + 1 > total_countries){
 
 						printf("returning \n");
+						printf("No more countries profit == $%d \ntotal hours == %d \n",total_profit, hour);
+
 						return;
 					}
 
@@ -146,7 +171,7 @@ void transmit(data_country *country[], data_canTake *canTake, data_queue *que,
 
 }
 
-void API(data_country *country[], data_canTake *canTake, data_queue *que,
+void API(data_country *country[], data_queue *que,
      	int total_countries){
 
 	int que_count = 0;
@@ -169,22 +194,19 @@ void API(data_country *country[], data_canTake *canTake, data_queue *que,
 		}
 	}
 
-	 //test
+	if(que_count == 0){return;}
         for(int i=0; i<que_count; i++){
 
-                //printf("%d \n", que->waiting_countries[i]);
                 printf("%d is the pack for %s\n",country[que->waiting_countries[i]]->selectedPack, country[que->waiting_countries[i]]->name);
         }
 
-	function_canTake(country, canTake,array_size);
-	transmit(country, canTake,que,que_count);
+	transmit(country, que, que_count);
 }
 
 int main(int argc, char* argv[]){
 
 	data_country *country[5];
 	data_queue   *que;
-	data_canTake *canTake;
 
 	for(int i=0; i<5; i++){
 
@@ -193,7 +215,6 @@ int main(int argc, char* argv[]){
 	}
 
 	que = malloc(4);
-	canTake = (data_canTake*) malloc(array_size*sizeof(data_canTake));
 
 	strcpy(country[0]->name, "USA");
 	strcpy(country[1]->name, "China");
@@ -201,7 +222,7 @@ int main(int argc, char* argv[]){
 	strcpy(country[3]->name, "Japan");
 	strcpy(country[4]->name, "Switzerland");
 
-	API(country, canTake, que, array_size);
+	API(country, que, array_size);
 
 	free(que);
 	for(int i=0; i<array_size; i++){
