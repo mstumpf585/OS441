@@ -58,11 +58,18 @@ int main()
 	country[4].name = "Switzerland";
 
 	API(country, queue);
+	if (global_queue != 0){
 	transmit(country, canTake, queue, global_queue);
 
 	cout << "Total Cost " << global_cost << endl;
 	cout << "Total Time " << global_time << " hours" << endl;
 	cout << "Entering Maintenence Mode" << endl;
+	}
+
+	if (global_queue == 0)
+	{
+		cout << "No countries want to transmit" <<  endl;
+	}
 }
 
 int transmit_time(int plan)
@@ -121,10 +128,12 @@ void transmit(data_country *country, data_canTake *canTake, data_queue *queue, i
 
 	channel[0].countDown = transmit_time(country[queue->waiting_countries[que_num[0]]].selectedPack);
 	channel[0].country = country[queue->waiting_countries[que_num[0]]].name;
+	country[queue->waiting_countries[que_num[0]]].has_tansmitted = true;
 	if (total_countries != 1)
 	{
 		channel[1].countDown = transmit_time(country[queue->waiting_countries[que_num[1]]].selectedPack);
 		channel[1].country = country[queue->waiting_countries[que_num[1]]].name;
+		country[queue->waiting_countries[que_num[1]]].has_tansmitted = true;
 	}
 	bool has_counted = false;
 	while (loop){
@@ -136,33 +145,27 @@ void transmit(data_country *country, data_canTake *canTake, data_queue *queue, i
 			{
 				has_counted = true;
 				channel[i].countDown--;
-				cout << channel[i].country << " " << channel[i].countDown << " hours till Completition" << endl;
+				cout << channel[i].country << " " << channel[i].countDown << " hours till Completition, channel " << i<<endl;
 				if (channel[i].countDown == 0){
-					country[queue->waiting_countries[que_num[i]]].has_tansmitted = true;
 					cout << channel[i].country << " took " << transmit_time(country[queue->waiting_countries[que_num[i]]].selectedPack) << " hour(s) and cost " << transit_cost(country[queue->waiting_countries[que_num[i]]].selectedPack) << endl;
-					if (que_num[i] <= total_countries -1 && total_countries !=1){
-						if (que_num[i] < total_countries -1)
-							que_num[i] ++;
-						if (country[queue->waiting_countries[que_num[0]]].name == country[queue->waiting_countries[que_num[1]]].name)
-							{
-								que_num[i]++;
+					if (que_num[i] <= global_queue - 1 && total_countries != 1){
+						while (country[queue->waiting_countries[que_num[i]]].has_tansmitted)
+						{
+							if (que_num[i] + 1 > global_queue-1){
+								channel[i].country = "none";
+								channel[i].countDown = 0;
+								break;
 							}
-						if (que_num[i] < total_countries-1){
-							if (country[queue->waiting_countries[que_num[i]]].has_tansmitted == true)
-								que_num[i] ++;
-							if (que_num[i] < total_countries){
+							que_num[i]++;
+						}
+						
+						if (que_num[i] <= global_queue - 1 && channel[i].country != "none"){
 								cout << "successfully changed countries in channel " << i << endl;
 								channel[i].country = country[queue->waiting_countries[que_num[i]]].name;
 								channel[i].countDown = transmit_time(country[queue->waiting_countries[que_num[i]]].selectedPack);
-							}
+								country[queue->waiting_countries[que_num[i]]].has_tansmitted = true;
 						}
 
-					}
-					else{
-						channel[i].country = "none";
-						if (que_num[i + 1] + 1 > sizeof(queue->waiting_countries)){
-							loop = false;
-						}
 					}
 				}
 				if (total_countries == 1){ i++; }
@@ -184,8 +187,9 @@ void API(data_country *country, data_queue *queue)
 	srand(time(NULL));
 	for (int i = 0; i < NUM_COUNTRIES; i++){
 		if (country[i].active == 0){
-			country[i].active = 1; // rand() % 2;
+			country[i].active = rand() % 2;
 			country[i].selectedPack = rand() % 4 + 1;
+			country[i].has_tansmitted = false;
 			if (country[i].active == 1){
 				queue->waiting_countries[queue_count] = i;
 				queue_count++;
