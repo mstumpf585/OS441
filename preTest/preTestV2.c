@@ -39,6 +39,8 @@ struct mutex_shared{
 
 } SHARED_DATA;
 
+int mountain_count = 0;
+
 pthread_mutex_t object_mutex;
 
 void magic(thread_data *objects);
@@ -217,8 +219,6 @@ void move_object(thread_data *objects){
                                 	ycord += 1;
 			}
 
-                	//debug
-                	//printf("here\n");
                 	if((xcord >= 0 && xcord < BoardX) && (ycord >= 0 && ycord < BoardY)){
 
 
@@ -263,8 +263,13 @@ void move_object(thread_data *objects){
 						clear(objects, ycord, xcord);
 					}
 
-					printf("moving mountain \n");
-					move_mountain(ycord, xcord);
+					mountain_count++;
+					if(mountain_count == 3){
+
+						printf("moving mountain\n");
+						move_mountain(ycord,xcord);
+						mountain_count = 0;
+					}
 					stop = 1;
 
 				}else if(SHARED_DATA.WHO_DEAD[objects->thread_num  == 0]){
