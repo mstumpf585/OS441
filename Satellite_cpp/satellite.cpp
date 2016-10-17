@@ -135,6 +135,10 @@ void transmit(data_country *country, data_canTake *canTake, data_queue *queue, i
 		channel[1].country = country[queue->waiting_countries[que_num[1]]].name;
 		country[queue->waiting_countries[que_num[1]]].has_tansmitted = true;
 	}
+	if (global_queue == 1){
+		channel[1].country = "none";
+		channel[1].countDown = 0;
+	}
 	bool has_counted = false;
 	while (loop){
 		for (int i = 0; i < CHANNELS; i++){
