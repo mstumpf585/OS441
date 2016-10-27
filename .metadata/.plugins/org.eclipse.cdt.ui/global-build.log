@@ -1,31 +1,20 @@
-14:29:18 **** Incremental Build of configuration Debug for project robot_gold_bomb ****
+12:26:35 **** Incremental Build of configuration Debug for project code_tofix ****
 make all 
-Building file: ../gold_bomb.c
+Building file: ../good.c
 Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"gold_bomb.d" -MT"gold_bomb.o" -o "gold_bomb.o" "../gold_bomb.c"
-../gold_bomb.c: In function ‘main’:
-../gold_bomb.c:54:2: warning: ‘tester’ is used uninitialized in this function [-Wuninitialized]
-  make_workspace(tester);
-  ^
-Finished building: ../gold_bomb.c
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"good.d" -MT"good.o" -o "good.o" "../good.c"
+../good.c: In function ‘main’:
+../good.c:98:27: warning: assignment makes integer from pointer without a cast [-Wint-conversion]
+     {  thread[i].thread_id=NULL;
+                           ^
+Finished building: ../good.c
  
-Building target: robot_gold_bomb
+Building target: code_tofix
 Invoking: GCC C Linker
-gcc  -o "robot_gold_bomb"  ./gold_bomb.o   
-Finished building target: robot_gold_bomb
- 
-14:29:21 **** Incremental Build of configuration Debug for project robot_gold_bomb ****
-make all 
-make: Nothing to be done for 'all'.
-13:11:34 **** Incremental Build of configuration Debug for project robot_gold_bomb ****
-make all 
-Building file: ../gold_bomb.c
-Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"gold_bomb.d" -MT"gold_bomb.o" -o "gold_bomb.o" "../gold_bomb.c"
-Finished building: ../gold_bomb.c
- 
-Building target: robot_gold_bomb
-Invoking: GCC C Linker
-gcc  -o "robot_gold_bomb"  ./gold_bomb.o   
-Finished building target: robot_gold_bomb
- 
+gcc  -o "code_tofix"  ./good.o   
+./good.o: In function `main':
+/home/michael/workspace/code_tofix/Debug/../good.c:100: undefined reference to `pthread_create'
+/home/michael/workspace/code_tofix/Debug/../good.c:104: undefined reference to `pthread_join'
+makefile:29: recipe for target 'code_tofix' failed
+collect2: error: ld returned 1 exit status
+make: *** [code_tofix] Error 1
