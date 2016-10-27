@@ -39,6 +39,8 @@ struct mutex_shared{
 
 } SHARED_DATA;
 
+int mountain_count = 0;
+
 pthread_mutex_t object_mutex;
 
 void magic(thread_data *objects);
@@ -217,8 +219,6 @@ void move_object(thread_data *objects){
                                 	ycord += 1;
 			}
 
-                	//debug
-                	//printf("here\n");
                 	if((xcord >= 0 && xcord < BoardX) && (ycord >= 0 && ycord < BoardY)){
 
 
@@ -229,7 +229,7 @@ void move_object(thread_data *objects){
 					stop = 1;
 
 				}else if(SHARED_DATA.BOARD[ycord][xcord] == 'C' && SHARED_DATA.WHO_DEAD[objects->thread_num] == 1 
-					&& (SHARED_DATA.FLAG[0] != objects->symbol || SHARED_DATA.FLAG[1] != objects->symbol)){
+					&& (SHARED_DATA.FLAG[0] != objects->symbol && SHARED_DATA.FLAG[1] != objects->symbol)){
 
 					clear(objects, ycord, xcord);
 					if(SHARED_DATA.CARROT1[0] == ycord && SHARED_DATA.CARROT1[1] == xcord){
@@ -254,8 +254,6 @@ void move_object(thread_data *objects){
 
 					if(SHARED_DATA.BOARD[ycord][xcord] != '-'){
 
-						// need to add more here
-						// find who to kill
 						printf("%c is the symbol before death\n", SHARED_DATA.BOARD[ycord][xcord]);
 						kill_toon(objects, ycord, xcord);
 					}else{
@@ -263,20 +261,29 @@ void move_object(thread_data *objects){
 						clear(objects, ycord, xcord);
 					}
 
-					printf("moving mountain \n");
-					move_mountain(ycord, xcord);
+					mountain_count++;
+					if(mountain_count == 3){
+
+						printf("moving mountain\n");
+						move_mountain(ycord,xcord);
+						mountain_count = 0;
+					}
 					stop = 1;
 
-				}else if(SHARED_DATA.WHO_DEAD[objects->thread_num  == 0]){
+				}else if(SHARED_DATA.WHO_DEAD[objects->thread_num]==0){
 
+					printf("Skipping %s\n", objects->character_name);
 					print = 0;
 					stop = 1;
 				}else{
+
+					print = 0;
 					printf("no condition\n");
 					ycord = objects->position_xy[0];
 					xcord = objects->position_xy[1];
 					count++;
 					if(count > 10){
+
 						stop = 1;
 
 						printf("dump \n symbol %c, name %s, number %d\n", objects->symbol, objects->character_name, objects->thread_num);
@@ -287,8 +294,6 @@ void move_object(thread_data *objects){
 						printf("who dead 1%d 2%d 3%d 4%d", SHARED_DATA.WHO_DEAD[0], SHARED_DATA.WHO_DEAD[1], SHARED_DATA.WHO_DEAD[2], SHARED_DATA.WHO_DEAD[3]);
 					}
 				}
-
-
        	 		}
 		}
 

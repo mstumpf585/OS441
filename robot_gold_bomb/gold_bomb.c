@@ -335,7 +335,7 @@ void *API(void *thread){
 
 		move_robot(objects);
 		is_gold(objects);
-		sleep(2);
+		sleep(1);
 
 
 	}
