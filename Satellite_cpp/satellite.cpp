@@ -1,3 +1,5 @@
+//Kevin Brenneman Michael Stumpf
+
 using namespace std;
 
 #include <iostream>
