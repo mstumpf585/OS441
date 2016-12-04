@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>toonB.png</file>
+        <file>toonC.png</file>
+        <file>toonD.png</file>
+        <file>toonF.png</file>
+        <file>toonM.png</file>
+        <file>toonT.png</file>
+        <file>toon-.png</file>
+    </qresource>
+</RCC>

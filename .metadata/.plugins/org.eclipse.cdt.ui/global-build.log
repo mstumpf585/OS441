@@ -1,20 +1,136 @@
-12:26:35 **** Incremental Build of configuration Debug for project code_tofix ****
+19:26:56 **** Incremental Build of configuration Debug for project mountainTwo ****
 make all 
-Building file: ../good.c
+make: Nothing to be done for 'all'.
+19:27:35 **** Incremental Build of configuration Debug for project mountainTwo ****
+make all 
+Building file: ../moutainAndRace.c
 Invoking: GCC C Compiler
-gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"good.d" -MT"good.o" -o "good.o" "../good.c"
-../good.c: In function ‘main’:
-../good.c:98:27: warning: assignment makes integer from pointer without a cast [-Wint-conversion]
-     {  thread[i].thread_id=NULL;
-                           ^
-Finished building: ../good.c
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"moutainAndRace.d" -MT"moutainAndRace.o" -o "moutainAndRace.o" "../moutainAndRace.c"
+../moutainAndRace.c: In function ‘walking_marving’:
+../moutainAndRace.c:260:5: warning: implicit declaration of function ‘printboard’ [-Wimplicit-function-declaration]
+     printboard();
+     ^
+../moutainAndRace.c: At top level:
+../moutainAndRace.c:323:6: warning: conflicting types for ‘printboard’
+ void printboard(){
+      ^
+../moutainAndRace.c:260:5: note: previous implicit declaration of ‘printboard’ was here
+     printboard();
+     ^
+../moutainAndRace.c: In function ‘printboard’:
+../moutainAndRace.c:332:30: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                              ^
+../moutainAndRace.c:332:60: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                            ^
+../moutainAndRace.c:332:93: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                                                             ^
+../moutainAndRace.c:340:30: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                              ^
+../moutainAndRace.c:340:60: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                            ^
+../moutainAndRace.c:340:93: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                                                             ^
+../moutainAndRace.c:348:30: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                              ^
+../moutainAndRace.c:348:60: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                            ^
+../moutainAndRace.c:348:93: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                                                             ^
+../moutainAndRace.c:356:30: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                              ^
+../moutainAndRace.c:356:60: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                            ^
+../moutainAndRace.c:356:93: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                                                             ^
+Finished building: ../moutainAndRace.c
  
-Building target: code_tofix
+Building target: mountainTwo
 Invoking: GCC C Linker
-gcc  -o "code_tofix"  ./good.o   
-./good.o: In function `main':
-/home/michael/workspace/code_tofix/Debug/../good.c:100: undefined reference to `pthread_create'
-/home/michael/workspace/code_tofix/Debug/../good.c:104: undefined reference to `pthread_join'
-makefile:29: recipe for target 'code_tofix' failed
-collect2: error: ld returned 1 exit status
-make: *** [code_tofix] Error 1
+gcc -pthread -o "mountainTwo"  ./moutainAndRace.o   
+Finished building target: mountainTwo
+ 
+19:27:53 **** Incremental Build of configuration Debug for project mountainTwo ****
+make all 
+make: Nothing to be done for 'all'.
+19:46:22 **** Clean-only build of configuration Debug for project mountainTwo ****
+make clean 
+rm -rf  ./moutainAndRace.o  ./moutainAndRace.d  mountainTwo
+ 
+19:46:22 **** Incremental Build of configuration Debug for project mountainTwo ****
+make all 
+Building file: ../moutainAndRace.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"moutainAndRace.d" -MT"moutainAndRace.o" -o "moutainAndRace.o" "../moutainAndRace.c"
+../moutainAndRace.c: In function ‘walking_marving’:
+../moutainAndRace.c:260:5: warning: implicit declaration of function ‘printboard’ [-Wimplicit-function-declaration]
+     printboard();
+     ^
+../moutainAndRace.c: At top level:
+../moutainAndRace.c:323:6: warning: conflicting types for ‘printboard’
+ void printboard(){
+      ^
+../moutainAndRace.c:260:5: note: previous implicit declaration of ‘printboard’ was here
+     printboard();
+     ^
+../moutainAndRace.c: In function ‘printboard’:
+../moutainAndRace.c:332:30: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                              ^
+../moutainAndRace.c:332:60: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                            ^
+../moutainAndRace.c:332:93: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                                                             ^
+../moutainAndRace.c:340:30: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                              ^
+../moutainAndRace.c:340:60: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                            ^
+../moutainAndRace.c:340:93: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                                                             ^
+../moutainAndRace.c:348:30: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                              ^
+../moutainAndRace.c:348:60: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                            ^
+../moutainAndRace.c:348:93: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                                                             ^
+../moutainAndRace.c:356:30: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                              ^
+../moutainAndRace.c:356:60: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                            ^
+../moutainAndRace.c:356:93: warning: array subscript has type ‘char’ [-Wchar-subscripts]
+                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
+                                                                                             ^
+Finished building: ../moutainAndRace.c
+ 
+Building target: mountainTwo
+Invoking: GCC C Linker
+gcc -pthread -o "mountainTwo"  ./moutainAndRace.o   
+Finished building target: mountainTwo
+ 
+19:54:12 **** Incremental Build of configuration Debug for project mountainTwo ****
+make all 
+make: Nothing to be done for 'all'.
+20:30:16 **** Incremental Build of configuration Debug for project mountainTwo ****
+make all 
+make: Nothing to be done for 'all'.

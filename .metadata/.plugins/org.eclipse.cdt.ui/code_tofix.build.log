@@ -1,0 +1,23 @@
+12:26:35 **** Incremental Build of configuration Debug for project code_tofix ****
+make all 
+Building file: ../good.c
+Invoking: GCC C Compiler
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"good.d" -MT"good.o" -o "good.o" "../good.c"
+../good.c: In function ‘main’:
+../good.c:98:27: warning: assignment makes integer from pointer without a cast [-Wint-conversion]
+     {  thread[i].thread_id=NULL;
+                           ^
+Finished building: ../good.c
+ 
+Building target: code_tofix
+Invoking: GCC C Linker
+gcc  -o "code_tofix"  ./good.o   
+./good.o: In function `main':
+/home/michael/workspace/code_tofix/Debug/../good.c:100: undefined reference to `pthread_create'
+/home/michael/workspace/code_tofix/Debug/../good.c:104: undefined reference to `pthread_join'
+makefile:29: recipe for target 'code_tofix' failed
+collect2: error: ld returned 1 exit status
+make: *** [code_tofix] Error 1
+
+12:26:35 Build Finished (took 166ms)
+

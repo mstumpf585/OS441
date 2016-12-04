@@ -1,6 +1,6 @@
-08:57:59 **** Incremental Build of configuration Debug for project Helicopter ****
+18:29:16 **** Incremental Build of configuration Debug for project Helicopter ****
 make all 
 make: Nothing to be done for 'all'.
 
-08:58:00 Build Finished (took 82ms)
+18:29:16 Build Finished (took 78ms)
 
