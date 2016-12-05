@@ -469,7 +469,7 @@ void toon_signal(ThreadData *toon){
 /////////////////////////////////////////////////////////////////////////////
                 toon->copy_FINISH_LINE = SHARED.FINISH_LINE = 1;
                 globalPause = 1;
-                myclass.cppReturnAnswer44("true");
+                myclass.cppReturnAnswer44(1);
             }
             if (Final_count < 2) {
                 printf("\n WINNER = %s\n", SHARED.WINNER);
@@ -814,6 +814,9 @@ int main(int argc, char *argv[])
 
     QObject::connect(&myclass, SIGNAL(cppReturnAnswer43(QVariant)),
                          window, SLOT(qmlUpdate44(QVariant)));
+
+    QObject::connect(&myclass, SIGNAL(cppReturnAnswer44(QVariant)),
+                         window, SLOT(qmlUpdate45(QVariant)));
 
 
 

@@ -19,8 +19,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ShakeHands_t {
-    QByteArrayData data[30];
-    char stringdata0[473];
+    QByteArrayData data[51];
+    char stringdata0[851];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -57,8 +57,29 @@ QT_MOC_LITERAL(24, 383, 17), // "cppReturnAnswer20"
 QT_MOC_LITERAL(25, 401, 17), // "cppReturnAnswer21"
 QT_MOC_LITERAL(26, 419, 17), // "cppReturnAnswer22"
 QT_MOC_LITERAL(27, 437, 17), // "cppReturnAnswer23"
-QT_MOC_LITERAL(28, 455, 13), // "cppGetRequest"
-QT_MOC_LITERAL(29, 469, 3) // "msg"
+QT_MOC_LITERAL(28, 455, 17), // "cppReturnAnswer24"
+QT_MOC_LITERAL(29, 473, 17), // "cppReturnAnswer25"
+QT_MOC_LITERAL(30, 491, 17), // "cppReturnAnswer26"
+QT_MOC_LITERAL(31, 509, 17), // "cppReturnAnswer27"
+QT_MOC_LITERAL(32, 527, 17), // "cppReturnAnswer28"
+QT_MOC_LITERAL(33, 545, 17), // "cppReturnAnswer29"
+QT_MOC_LITERAL(34, 563, 17), // "cppReturnAnswer30"
+QT_MOC_LITERAL(35, 581, 17), // "cppReturnAnswer31"
+QT_MOC_LITERAL(36, 599, 17), // "cppReturnAnswer32"
+QT_MOC_LITERAL(37, 617, 17), // "cppReturnAnswer33"
+QT_MOC_LITERAL(38, 635, 17), // "cppReturnAnswer34"
+QT_MOC_LITERAL(39, 653, 17), // "cppReturnAnswer35"
+QT_MOC_LITERAL(40, 671, 17), // "cppReturnAnswer36"
+QT_MOC_LITERAL(41, 689, 17), // "cppReturnAnswer37"
+QT_MOC_LITERAL(42, 707, 17), // "cppReturnAnswer38"
+QT_MOC_LITERAL(43, 725, 17), // "cppReturnAnswer39"
+QT_MOC_LITERAL(44, 743, 17), // "cppReturnAnswer40"
+QT_MOC_LITERAL(45, 761, 17), // "cppReturnAnswer41"
+QT_MOC_LITERAL(46, 779, 17), // "cppReturnAnswer42"
+QT_MOC_LITERAL(47, 797, 17), // "cppReturnAnswer43"
+QT_MOC_LITERAL(48, 815, 17), // "cppReturnAnswer44"
+QT_MOC_LITERAL(49, 833, 13), // "cppGetRequest"
+QT_MOC_LITERAL(50, 847, 3) // "msg"
 
     },
     "ShakeHands\0cppReturnAnswer\0\0data\0"
@@ -74,7 +95,17 @@ QT_MOC_LITERAL(29, 469, 3) // "msg"
     "cppReturnAnswer18\0cppReturnAnswer19\0"
     "cppReturnAnswer20\0cppReturnAnswer21\0"
     "cppReturnAnswer22\0cppReturnAnswer23\0"
-    "cppGetRequest\0msg"
+    "cppReturnAnswer24\0cppReturnAnswer25\0"
+    "cppReturnAnswer26\0cppReturnAnswer27\0"
+    "cppReturnAnswer28\0cppReturnAnswer29\0"
+    "cppReturnAnswer30\0cppReturnAnswer31\0"
+    "cppReturnAnswer32\0cppReturnAnswer33\0"
+    "cppReturnAnswer34\0cppReturnAnswer35\0"
+    "cppReturnAnswer36\0cppReturnAnswer37\0"
+    "cppReturnAnswer38\0cppReturnAnswer39\0"
+    "cppReturnAnswer40\0cppReturnAnswer41\0"
+    "cppReturnAnswer42\0cppReturnAnswer43\0"
+    "cppReturnAnswer44\0cppGetRequest\0msg"
 };
 #undef QT_MOC_LITERAL
 
@@ -84,42 +115,63 @@ static const uint qt_meta_data_ShakeHands[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      26,   14, // methods
+      47,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-      25,       // signalCount
+      46,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    1,  144,    2, 0x06 /* Public */,
-       4,    1,  147,    2, 0x06 /* Public */,
-       5,    1,  150,    2, 0x06 /* Public */,
-       6,    1,  153,    2, 0x06 /* Public */,
-       7,    1,  156,    2, 0x06 /* Public */,
-       8,    1,  159,    2, 0x06 /* Public */,
-       9,    1,  162,    2, 0x06 /* Public */,
-      10,    1,  165,    2, 0x06 /* Public */,
-      11,    1,  168,    2, 0x06 /* Public */,
-      12,    1,  171,    2, 0x06 /* Public */,
-      13,    1,  174,    2, 0x06 /* Public */,
-      14,    1,  177,    2, 0x06 /* Public */,
-      15,    1,  180,    2, 0x06 /* Public */,
-      16,    1,  183,    2, 0x06 /* Public */,
-      17,    1,  186,    2, 0x06 /* Public */,
-      18,    1,  189,    2, 0x06 /* Public */,
-      19,    1,  192,    2, 0x06 /* Public */,
-      20,    1,  195,    2, 0x06 /* Public */,
-      21,    1,  198,    2, 0x06 /* Public */,
-      22,    1,  201,    2, 0x06 /* Public */,
-      23,    1,  204,    2, 0x06 /* Public */,
-      24,    1,  207,    2, 0x06 /* Public */,
-      25,    1,  210,    2, 0x06 /* Public */,
-      26,    1,  213,    2, 0x06 /* Public */,
-      27,    1,  216,    2, 0x06 /* Public */,
+       1,    1,  249,    2, 0x06 /* Public */,
+       4,    1,  252,    2, 0x06 /* Public */,
+       5,    1,  255,    2, 0x06 /* Public */,
+       6,    1,  258,    2, 0x06 /* Public */,
+       7,    1,  261,    2, 0x06 /* Public */,
+       8,    1,  264,    2, 0x06 /* Public */,
+       9,    1,  267,    2, 0x06 /* Public */,
+      10,    1,  270,    2, 0x06 /* Public */,
+      11,    1,  273,    2, 0x06 /* Public */,
+      12,    1,  276,    2, 0x06 /* Public */,
+      13,    1,  279,    2, 0x06 /* Public */,
+      14,    1,  282,    2, 0x06 /* Public */,
+      15,    1,  285,    2, 0x06 /* Public */,
+      16,    1,  288,    2, 0x06 /* Public */,
+      17,    1,  291,    2, 0x06 /* Public */,
+      18,    1,  294,    2, 0x06 /* Public */,
+      19,    1,  297,    2, 0x06 /* Public */,
+      20,    1,  300,    2, 0x06 /* Public */,
+      21,    1,  303,    2, 0x06 /* Public */,
+      22,    1,  306,    2, 0x06 /* Public */,
+      23,    1,  309,    2, 0x06 /* Public */,
+      24,    1,  312,    2, 0x06 /* Public */,
+      25,    1,  315,    2, 0x06 /* Public */,
+      26,    1,  318,    2, 0x06 /* Public */,
+      27,    1,  321,    2, 0x06 /* Public */,
+      28,    1,  324,    2, 0x06 /* Public */,
+      29,    1,  327,    2, 0x06 /* Public */,
+      30,    1,  330,    2, 0x06 /* Public */,
+      31,    1,  333,    2, 0x06 /* Public */,
+      32,    1,  336,    2, 0x06 /* Public */,
+      33,    1,  339,    2, 0x06 /* Public */,
+      34,    1,  342,    2, 0x06 /* Public */,
+      35,    1,  345,    2, 0x06 /* Public */,
+      36,    1,  348,    2, 0x06 /* Public */,
+      37,    1,  351,    2, 0x06 /* Public */,
+      38,    1,  354,    2, 0x06 /* Public */,
+      39,    1,  357,    2, 0x06 /* Public */,
+      40,    1,  360,    2, 0x06 /* Public */,
+      41,    1,  363,    2, 0x06 /* Public */,
+      42,    1,  366,    2, 0x06 /* Public */,
+      43,    1,  369,    2, 0x06 /* Public */,
+      44,    1,  372,    2, 0x06 /* Public */,
+      45,    1,  375,    2, 0x06 /* Public */,
+      46,    1,  378,    2, 0x06 /* Public */,
+      47,    1,  381,    2, 0x06 /* Public */,
+      48,    1,  384,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      28,    1,  219,    2, 0x0a /* Public */,
+      49,    1,  387,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QVariant,    3,
@@ -147,9 +199,30 @@ static const uint qt_meta_data_ShakeHands[] = {
     QMetaType::Void, QMetaType::QVariant,    3,
     QMetaType::Void, QMetaType::QVariant,    3,
     QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
+    QMetaType::Void, QMetaType::QVariant,    3,
 
  // slots: parameters
-    QMetaType::Void, QMetaType::QString,   29,
+    QMetaType::Void, QMetaType::QString,   50,
 
        0        // eod
 };
@@ -185,7 +258,28 @@ void ShakeHands::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 22: _t->cppReturnAnswer21((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
         case 23: _t->cppReturnAnswer22((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
         case 24: _t->cppReturnAnswer23((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
-        case 25: _t->cppGetRequest((*reinterpret_cast< const QString(*)>(_a[1]))); break;
+        case 25: _t->cppReturnAnswer24((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 26: _t->cppReturnAnswer25((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 27: _t->cppReturnAnswer26((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 28: _t->cppReturnAnswer27((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 29: _t->cppReturnAnswer28((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 30: _t->cppReturnAnswer29((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 31: _t->cppReturnAnswer30((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 32: _t->cppReturnAnswer31((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 33: _t->cppReturnAnswer32((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 34: _t->cppReturnAnswer33((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 35: _t->cppReturnAnswer34((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 36: _t->cppReturnAnswer35((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 37: _t->cppReturnAnswer36((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 38: _t->cppReturnAnswer37((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 39: _t->cppReturnAnswer38((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 40: _t->cppReturnAnswer39((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 41: _t->cppReturnAnswer40((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 42: _t->cppReturnAnswer41((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 43: _t->cppReturnAnswer42((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 44: _t->cppReturnAnswer43((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 45: _t->cppReturnAnswer44((*reinterpret_cast< QVariant(*)>(_a[1]))); break;
+        case 46: _t->cppGetRequest((*reinterpret_cast< const QString(*)>(_a[1]))); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -366,6 +460,153 @@ void ShakeHands::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
                 return;
             }
         }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer24)) {
+                *result = 25;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer25)) {
+                *result = 26;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer26)) {
+                *result = 27;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer27)) {
+                *result = 28;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer28)) {
+                *result = 29;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer29)) {
+                *result = 30;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer30)) {
+                *result = 31;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer31)) {
+                *result = 32;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer32)) {
+                *result = 33;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer33)) {
+                *result = 34;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer34)) {
+                *result = 35;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer35)) {
+                *result = 36;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer36)) {
+                *result = 37;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer37)) {
+                *result = 38;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer38)) {
+                *result = 39;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer39)) {
+                *result = 40;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer40)) {
+                *result = 41;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer41)) {
+                *result = 42;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer42)) {
+                *result = 43;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer43)) {
+                *result = 44;
+                return;
+            }
+        }
+        {
+            typedef void (ShakeHands::*_t)(QVariant );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&ShakeHands::cppReturnAnswer44)) {
+                *result = 45;
+                return;
+            }
+        }
     }
 }
 
@@ -394,13 +635,13 @@ int ShakeHands::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 26)
+        if (_id < 47)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 26;
+        _id -= 47;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 26)
+        if (_id < 47)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 26;
+        _id -= 47;
     }
     return _id;
 }
@@ -578,5 +819,152 @@ void ShakeHands::cppReturnAnswer23(QVariant _t1)
 {
     void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
     QMetaObject::activate(this, &staticMetaObject, 24, _a);
+}
+
+// SIGNAL 25
+void ShakeHands::cppReturnAnswer24(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 25, _a);
+}
+
+// SIGNAL 26
+void ShakeHands::cppReturnAnswer25(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 26, _a);
+}
+
+// SIGNAL 27
+void ShakeHands::cppReturnAnswer26(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 27, _a);
+}
+
+// SIGNAL 28
+void ShakeHands::cppReturnAnswer27(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 28, _a);
+}
+
+// SIGNAL 29
+void ShakeHands::cppReturnAnswer28(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 29, _a);
+}
+
+// SIGNAL 30
+void ShakeHands::cppReturnAnswer29(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 30, _a);
+}
+
+// SIGNAL 31
+void ShakeHands::cppReturnAnswer30(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 31, _a);
+}
+
+// SIGNAL 32
+void ShakeHands::cppReturnAnswer31(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 32, _a);
+}
+
+// SIGNAL 33
+void ShakeHands::cppReturnAnswer32(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 33, _a);
+}
+
+// SIGNAL 34
+void ShakeHands::cppReturnAnswer33(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 34, _a);
+}
+
+// SIGNAL 35
+void ShakeHands::cppReturnAnswer34(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 35, _a);
+}
+
+// SIGNAL 36
+void ShakeHands::cppReturnAnswer35(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 36, _a);
+}
+
+// SIGNAL 37
+void ShakeHands::cppReturnAnswer36(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 37, _a);
+}
+
+// SIGNAL 38
+void ShakeHands::cppReturnAnswer37(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 38, _a);
+}
+
+// SIGNAL 39
+void ShakeHands::cppReturnAnswer38(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 39, _a);
+}
+
+// SIGNAL 40
+void ShakeHands::cppReturnAnswer39(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 40, _a);
+}
+
+// SIGNAL 41
+void ShakeHands::cppReturnAnswer40(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 41, _a);
+}
+
+// SIGNAL 42
+void ShakeHands::cppReturnAnswer41(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 42, _a);
+}
+
+// SIGNAL 43
+void ShakeHands::cppReturnAnswer42(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 43, _a);
+}
+
+// SIGNAL 44
+void ShakeHands::cppReturnAnswer43(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 44, _a);
+}
+
+// SIGNAL 45
+void ShakeHands::cppReturnAnswer44(QVariant _t1)
+{
+    void *_a[] = { Q_NULLPTR, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    QMetaObject::activate(this, &staticMetaObject, 45, _a);
 }
 QT_END_MOC_NAMESPACE

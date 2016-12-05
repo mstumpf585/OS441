@@ -150,7 +150,12 @@ Window {
 
     //for rectangle
     function qmlUpdate45(text){
-        Rectangle.visible = text;
+
+        if(text == 1){
+
+            console.debug(text);
+            rectangle1.visible = true;
+        }
     }
 
 
