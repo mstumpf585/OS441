@@ -34,6 +34,7 @@
 #define M 3
 
 int globalPause = 0;
+FILE *output;
 ShakeHands myclass;
 int getRandom(int rangeLow, int rangeHigh, struct timeval time);
 void setup_time_seed();
@@ -145,16 +146,20 @@ void print_board_horizontal(int toon_pos[]){
     char toon_letter[2]={winner_part1[0][0],winner_part1[1][0]};
     for(int column= 0 ; column<10; column++){
         printf("_ ");
+        fprintf(output,"_ ");
     }
 
     for(int agent=0;agent<2;agent++){
         printf("\n");
+        fprintf(output,"\n");
         for(int column= 0 ; column<10; column++){
             if(toon_pos[agent]==column){
                 printf("%c ",toon_letter[agent]);
+                fprintf(output,"%c ",toon_letter[agent]);
                 sender2[agent][column] = toon_letter[agent];
             }else{
                 printf("_ ");
+                fprintf(output,"_ ");
                 sender2[agent][column] = '-';
             }
 
@@ -194,6 +199,8 @@ void toon_signal_P2(ThreadDataP2 *toon){
             SHAREDP2.CONDITION_TOON=toon->id;
             printf("\nCOUNT_GLOBAL = %d \t toon->name = %s \t| next CONDITION_TOON = %d\n",
                                  SHAREDP2.COUNT_GLOBAL,toon->name,SHAREDP2.CONDITION_TOON);
+            fprintf(output,"\nCOUNT_GLOBAL = %d \t toon->name = %s \t| next CONDITION_TOON = %d\n",
+                                 SHAREDP2.COUNT_GLOBAL,toon->name,SHAREDP2.CONDITION_TOON);
 
             //if(toon->name == "Marvin")
             if(strcmp(toon->name,"Muttley") == 0){
@@ -202,6 +209,7 @@ void toon_signal_P2(ThreadDataP2 *toon){
                     SHAREDP2.FROZEN[0]=getRandom(0,1,time);
                     SHAREDP2.FROZEN[1]=getRandom(0,1,time);
                     printf("%s can shoot, timing is even - FROZEN[%s] = %d  - FROZEN[%s] = %d\n",toon->name,winner_part1[0],SHAREDP2.FROZEN[0],winner_part1[1],SHAREDP2.FROZEN[1]);
+                    fprintf(output,"%s can shoot, timing is even - FROZEN[%s] = %d  - FROZEN[%s] = %d\n",toon->name,winner_part1[0],SHAREDP2.FROZEN[0],winner_part1[1],SHAREDP2.FROZEN[1]);
                 }
                 print_board_horizontal(SHAREDP2.TOON_POSITION);
                 //print_board_vertical(TOON_POSITION);
@@ -211,6 +219,8 @@ void toon_signal_P2(ThreadDataP2 *toon){
                             strcpy(SHAREDP2.WINNER,"IT IS A TIE!");
                         }
                         printf("\n WINNER = %s\n",SHAREDP2.WINNER);
+                        fprintf(output,"\n WINNER = %s\n",SHAREDP2.WINNER);
+
 
                 }
             }else{
@@ -218,8 +228,10 @@ void toon_signal_P2(ThreadDataP2 *toon){
                         toon->position++;
                         SHAREDP2.TOON_POSITION[toon->id]=toon->position;
                         printf("%s move position : %d",toon->name,toon->position);
+                        fprintf(output,"%s move position : %d",toon->name,toon->position);
                     }else{
                         printf("%s was frozen, don't move position : %d",toon->name,toon->position);
+                        fprintf(output,"%s was frozen, don't move position : %d",toon->name,toon->position);
                         SHAREDP2.FROZEN[toon->id]--;
                     }
                     if(toon->position>=9||SHAREDP2.FINISH_LINE==1){
@@ -242,8 +254,10 @@ void *run_API_P2(void *thread)
 
    while(!toon->copy_FINISH_LINE){
         toon_signal_P2(toon);
-        sleep(2);
+        sleep(1);
    }
+
+   fclose(output);
 
    pthread_exit(NULL);
 }
@@ -481,10 +495,12 @@ void toon_signal(ThreadData *toon){
             if(!SHARED.FINISH_LINE){
                 if(strcmp(toon->name,"Marvin") == 0 && SHARED.TOON[toon->id].IS_ALIVE){
                     printf("\t-----------------------------------\n");
+                    fprintf(output,"\t-----------------------------------\n");
                     walking_marving(toon);
                 }else{
                     if(SHARED.TOON[toon->id].IS_ALIVE){
                         printf("\t-----------------------------------\n");
+                        fprintf(output,"\t-----------------------------------\n");
                         walking_tooneys(toon);
                     }
                 }
@@ -501,6 +517,7 @@ void toon_signal(ThreadData *toon){
             }
             if (Final_count < 2) {
                 printf("\n WINNER = %s\n", SHARED.WINNER);
+                fprintf(output,"\n WINNER = %s\n", SHARED.WINNER);
             }
             capture_winner(Final_count);
 
@@ -549,16 +566,19 @@ void printboard(){
     char cartoon;
     for(row=0;row<BOARDSIZE; row++){
         printf("\t");
+        fprintf(output,"\t");
         for(column=0;column<BOARDSIZE;column++){
             switch(BOARD[row].POS[column].TOON){
                 case 'B':
                     cartoon=BUNNY;
                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
                         printf("%c(C)\t",BOARD[row].POS[column].TOON);
+                        fprintf(output,"%c(C)\t",BOARD[row].POS[column].TOON);
                         sender[row][column]= 'W';
 
                     }else{
-                        printf("%c\t",BOARD[row].POS[column].TOON);\
+                        printf("%c\t",BOARD[row].POS[column].TOON);
+                        fprintf(output,"%c\t",BOARD[row].POS[column].TOON);
                         sender[row][column]= BOARD[row].POS[column].TOON;
                     }
                     break;
@@ -566,9 +586,11 @@ void printboard(){
                     cartoon=DEVIL;
                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
                         printf("%c(C)\t",BOARD[row].POS[column].TOON);
+                        fprintf(output,"%c(C)\t",BOARD[row].POS[column].TOON);
                         sender[row][column]= 'X';
                     }else{
                         printf("%c\t",BOARD[row].POS[column].TOON);
+                        fprintf(output,"%c\t",BOARD[row].POS[column].TOON);
                         sender[row][column]= BOARD[row].POS[column].TOON;
                     }
                     break;
@@ -576,9 +598,11 @@ void printboard(){
                     cartoon=TWEETY;
                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
                         printf("%c(C)\t",BOARD[row].POS[column].TOON);
+                        fprintf(output,"%c(C)\t",BOARD[row].POS[column].TOON);
                         sender[row][column]= 'Z';
                     }else{
                         printf("%c\t",BOARD[row].POS[column].TOON);
+                        fprintf(output,"%c\t",BOARD[row].POS[column].TOON);
                         sender[row][column]= BOARD[row].POS[column].TOON;
                     }
                     break;
@@ -586,15 +610,18 @@ void printboard(){
                     cartoon=MARVIN;
                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
                         printf("%c(C)\t",BOARD[row].POS[column].TOON);
+                        fprintf(output,"%c(C)\t",BOARD[row].POS[column].TOON);
                         sender[row][column]= 'Y';
                     }else{
                         printf("%c\t",BOARD[row].POS[column].TOON);
+                        fprintf(output,"%c\t",BOARD[row].POS[column].TOON);
                         sender[row][column]= BOARD[row].POS[column].TOON;
                     }
                     break;
 
                 default:
                     printf("%c\t",BOARD[row].POS[column].TOON);
+                    fprintf(output,"%c\t",BOARD[row].POS[column].TOON);
                     sender[row][column]= BOARD[row].POS[column].TOON;
                 }
                 myclass.cppReturnAnswer(QVariant(sender[0][0]));
@@ -630,6 +657,7 @@ void printboard(){
         }
 
         printf("\n");
+        fprintf(output,"\n");
     }
 }
 
@@ -655,6 +683,7 @@ void init_data(ThreadData *toon){
     }
     create_objects();
     printf("\t-----------------------------------\n");
+    fprintf(output,"\t-----------------------------------\n");
     printboard();
 
     toon[0].id=0;
@@ -847,6 +876,7 @@ int main(int argc, char *argv[])
                          window, SLOT(qmlUpdate45(QVariant)));
 
 
+    output = fopen("/tmp/output.txt", "w+");
 
 
     int i;
