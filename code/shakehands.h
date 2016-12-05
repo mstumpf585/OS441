@@ -36,6 +36,35 @@ class ShakeHands : public QObject
         void cppReturnAnswer21(QVariant data);
         void cppReturnAnswer22(QVariant data);
         void cppReturnAnswer23(QVariant data);
+
+        //for 2nd part
+        void cppReturnAnswer24(QVariant data);
+        void cppReturnAnswer25(QVariant data);
+        void cppReturnAnswer26(QVariant data);
+        void cppReturnAnswer27(QVariant data);
+        void cppReturnAnswer28(QVariant data);
+        void cppReturnAnswer29(QVariant data);
+        void cppReturnAnswer30(QVariant data);
+        void cppReturnAnswer31(QVariant data);
+        void cppReturnAnswer32(QVariant data);
+        void cppReturnAnswer33(QVariant data);
+        void cppReturnAnswer34(QVariant data);
+        void cppReturnAnswer35(QVariant data);
+        void cppReturnAnswer36(QVariant data);
+        void cppReturnAnswer37(QVariant data);
+        void cppReturnAnswer38(QVariant data);
+        void cppReturnAnswer39(QVariant data);
+        void cppReturnAnswer40(QVariant data);
+        void cppReturnAnswer41(QVariant data);
+        void cppReturnAnswer42(QVariant data);
+        void cppReturnAnswer43(QVariant data);
+
+        //for rectangle
+        void cppReturnAnswer44(QVariant data);
+
+
+
+
     public slots:
         void cppGetRequest(const QString &msg);
 
