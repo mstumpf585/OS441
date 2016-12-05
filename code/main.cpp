@@ -140,18 +140,46 @@ char WINNER[15];
 }SHAREDP2;
 
 void print_board_horizontal(int toon_pos[]){
+
+    char sender2[2][10];
     char toon_letter[2]={winner_part1[0][0],winner_part1[1][0]};
     for(int column= 0 ; column<10; column++){
         printf("_ ");
     }
+
     for(int agent=0;agent<2;agent++){
         printf("\n");
         for(int column= 0 ; column<10; column++){
             if(toon_pos[agent]==column){
                 printf("%c ",toon_letter[agent]);
+                sender2[agent][column] = toon_letter[agent];
             }else{
                 printf("_ ");
+                sender2[agent][column] = '-';
             }
+
+            //output to gui
+            myclass.cppReturnAnswer24(sender2[0][0]);
+            myclass.cppReturnAnswer25(sender2[0][1]);
+            myclass.cppReturnAnswer26(sender2[0][2]);
+            myclass.cppReturnAnswer27(sender2[0][3]);
+            myclass.cppReturnAnswer28(sender2[0][4]);
+            myclass.cppReturnAnswer29(sender2[0][5]);
+            myclass.cppReturnAnswer30(sender2[0][6]);
+            myclass.cppReturnAnswer31(sender2[0][7]);
+            myclass.cppReturnAnswer32(sender2[0][8]);
+            myclass.cppReturnAnswer33(sender2[0][9]);
+            myclass.cppReturnAnswer34(sender2[1][0]);
+            myclass.cppReturnAnswer35(sender2[1][1]);
+            myclass.cppReturnAnswer36(sender2[1][2]);
+            myclass.cppReturnAnswer37(sender2[1][3]);
+            myclass.cppReturnAnswer38(sender2[1][4]);
+            myclass.cppReturnAnswer39(sender2[1][5]);
+            myclass.cppReturnAnswer40(sender2[1][6]);
+            myclass.cppReturnAnswer41(sender2[1][7]);
+            myclass.cppReturnAnswer42(sender2[1][8]);
+            myclass.cppReturnAnswer43(sender2[1][9]);
+
         }
     }
 }
@@ -214,7 +242,7 @@ void *run_API_P2(void *thread)
 
    while(!toon->copy_FINISH_LINE){
         toon_signal_P2(toon);
-        //sleep(1);
+        sleep(2);
    }
 
    pthread_exit(NULL);
