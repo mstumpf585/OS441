@@ -578,11 +578,15 @@ qrc_qml.cpp: ../code/qml.qrc \
 		../code/toon-.png \
 		../code/toonB.png \
 		../code/toonF.png \
+		../code/toonW.png \
+		../code/toonZ.png \
 		../code/toonM.png \
 		../code/toonD.png \
+		../code/toonY.png \
 		../code/toonC.png \
 		../code/toonT.png \
-		../code/main.qml
+		../code/main.qml \
+		../code/toonX.png
 	/home/michael/Qt/5.7/gcc_64/bin/rcc -name qml ../code/qml.qrc -o qrc_qml.cpp
 
 compiler_moc_header_make_all: moc_shakehands.cpp

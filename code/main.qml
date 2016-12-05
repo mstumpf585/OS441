@@ -135,7 +135,7 @@ Window {
     function qmlUpdate40(text){
         image41.source = "toon" + String.fromCharCode(text) + ".png"
     }
-    function qmlUpdate42(text){
+    function qmlUpdate41(text){
         image42.source = "toon" + String.fromCharCode(text) + ".png"
     }
     function qmlUpdate42(text){
@@ -150,7 +150,12 @@ Window {
 
     //for rectangle
     function qmlUpdate45(text){
-        Rectangle.visible = text;
+
+        if(text == 1){
+
+            console.debug(text);
+            rectangle1.visible = true;
+        }
     }
 
 

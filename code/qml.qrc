@@ -8,5 +8,9 @@
         <file>toonM.png</file>
         <file>toonT.png</file>
         <file>toon-.png</file>
+        <file>toonW.png</file>
+        <file>toonX.png</file>
+        <file>toonY.png</file>
+        <file>toonZ.png</file>
     </qresource>
 </RCC>
