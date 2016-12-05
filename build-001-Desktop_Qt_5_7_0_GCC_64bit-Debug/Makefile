@@ -579,6 +579,7 @@ qrc_qml.cpp: ../code/qml.qrc \
 		../code/toonB.png \
 		../code/toonF.png \
 		../code/toonW.png \
+		../code/tron.jpg \
 		../code/toonZ.png \
 		../code/toonM.png \
 		../code/toonD.png \

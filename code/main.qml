@@ -392,6 +392,7 @@ Window {
         width: 640
         height: 640
         color: "#ffffff"
+        z: 0
         visible: false
 
         Image {
@@ -400,6 +401,7 @@ Window {
             y: 230
             width: 50
             height: 50
+            z: 21
             source: "toon-.png"
         }
 
@@ -409,6 +411,7 @@ Window {
             y: 230
             width: 50
             height: 50
+            z: 20
             source: "toon-.png"
         }
 
@@ -418,6 +421,7 @@ Window {
             y: 230
             width: 50
             height: 50
+            z: 19
             source: "toon-.png"
         }
 
@@ -427,6 +431,7 @@ Window {
             y: 230
             width: 50
             height: 50
+            z: 18
             source: "toon-.png"
         }
 
@@ -436,6 +441,7 @@ Window {
             y: 230
             width: 50
             height: 50
+            z: 17
             source: "toon-.png"
         }
 
@@ -445,6 +451,7 @@ Window {
             y: 230
             width: 50
             height: 50
+            z: 16
             source: "toon-.png"
         }
 
@@ -454,6 +461,7 @@ Window {
             y: 230
             width: 50
             height: 50
+            z: 15
             source: "toon-.png"
         }
 
@@ -463,6 +471,7 @@ Window {
             y: 230
             width: 50
             height: 50
+            z: 14
             source: "toon-.png"
         }
 
@@ -472,6 +481,7 @@ Window {
             y: 230
             width: 50
             height: 50
+            z: 13
             source: "toon-.png"
         }
 
@@ -481,6 +491,7 @@ Window {
             y: 230
             width: 50
             height: 50
+            z: 12
             source: "toon-.png"
         }
 
@@ -490,6 +501,7 @@ Window {
             y: 322
             width: 50
             height: 50
+            z: 11
             source: "toon-.png"
         }
 
@@ -499,6 +511,7 @@ Window {
             y: 322
             width: 50
             height: 50
+            z: 10
             source: "toon-.png"
         }
 
@@ -508,6 +521,7 @@ Window {
             y: 322
             width: 50
             height: 50
+            z: 9
             source: "toon-.png"
         }
 
@@ -517,6 +531,7 @@ Window {
             y: 322
             width: 50
             height: 50
+            z: 8
             source: "toon-.png"
         }
 
@@ -526,6 +541,7 @@ Window {
             y: 322
             width: 50
             height: 50
+            z: 7
             source: "toon-.png"
         }
 
@@ -535,6 +551,7 @@ Window {
             y: 322
             width: 50
             height: 50
+            z: 6
             source: "toon-.png"
         }
 
@@ -544,6 +561,7 @@ Window {
             y: 322
             width: 50
             height: 50
+            z: 5
             source: "toon-.png"
         }
 
@@ -553,6 +571,7 @@ Window {
             y: 322
             width: 50
             height: 50
+            z: 4
             source: "toon-.png"
         }
 
@@ -562,6 +581,7 @@ Window {
             y: 322
             width: 50
             height: 50
+            z: 3
             source: "toon-.png"
         }
 
@@ -571,7 +591,23 @@ Window {
             y: 322
             width: 50
             height: 50
+            z: 2
             source: "toon-.png"
+        }
+
+        Image {
+            id: image46
+            width: 640
+            height: 640
+            visible: true
+            z: 1
+            source: "tron.jpg"
+        }
+
+        Text {
+            id: text1
+            text: qsTr("Text")
+            font.pixelSize: 12
         }
     }
 }
