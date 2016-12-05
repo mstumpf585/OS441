@@ -58,9 +58,14 @@ class ShakeHands : public QObject
         void cppReturnAnswer41(QVariant data);
         void cppReturnAnswer42(QVariant data);
         void cppReturnAnswer43(QVariant data);
+        //cause we fucked up
+        void cppReturnAnswer45(QVariant data);
 
         //for rectangle
         void cppReturnAnswer44(QVariant data);
+
+        //for text
+        void cppReturnAnswer46(QVariant data);
 
 
 

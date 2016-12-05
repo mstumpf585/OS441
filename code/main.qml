@@ -159,6 +159,28 @@ Window {
     }
 
 
+    //for shooter
+    function qmlUpdate46(text){
+
+        //47 is the fucker who shoots.
+        if(text == 0){
+
+            image47.source = "noToon.png"
+
+        }else{
+
+            image47.source = "toonV.png"
+        }
+    }
+
+    //for text
+    function qmlUpdate47(text){
+
+        text1.text = text;
+    }
+
+
+
 
 
 
@@ -606,8 +628,21 @@ Window {
 
         Text {
             id: text1
-            text: qsTr("Text")
-            font.pixelSize: 12
+            color: "#c50303"
+            text: qsTr("Hello")
+            visible: true
+            z: 24
+            font.pixelSize: 39
+        }
+
+        Image {
+            id: image47
+            x: 275
+            y: 69
+            width: 100
+            height: 100
+            z: 23
+            source: "toonV.png"
         }
     }
 }

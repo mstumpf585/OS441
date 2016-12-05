@@ -13,5 +13,7 @@
         <file>toonY.png</file>
         <file>toonZ.png</file>
         <file>tron.jpg</file>
+        <file>toonV.png</file>
+        <file>noToon.png</file>
     </qresource>
 </RCC>
