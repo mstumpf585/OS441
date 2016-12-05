@@ -135,7 +135,7 @@ Window {
     function qmlUpdate40(text){
         image41.source = "toon" + String.fromCharCode(text) + ".png"
     }
-    function qmlUpdate42(text){
+    function qmlUpdate41(text){
         image42.source = "toon" + String.fromCharCode(text) + ".png"
     }
     function qmlUpdate42(text){

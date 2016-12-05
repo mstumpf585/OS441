@@ -509,14 +509,14 @@ void *run_API(void *thread)
    setup_time_seed();
    while(!toon->copy_FINISH_LINE){
         toon_signal(toon);
-        sleep(2);
+        sleep(1);
    }
    pthread_exit(NULL);
 }
 
 void printboard(){
 
-    char sender[5][5];
+    char sender[5][5] = {{'-','-','-','-','-'},{'-','-','-','-','-'},{'-','-','-','-','-'},{'-','-','-','-','-'},{'-','-','-','-','-'}};
     int row,column;
     char cartoon;
     for(row=0;row<BOARDSIZE; row++){
@@ -527,7 +527,7 @@ void printboard(){
                     cartoon=BUNNY;
                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
                         printf("%c(C)\t",BOARD[row].POS[column].TOON);
-                        sender[row][column]= BOARD[row].POS[column].TOON;
+                        sender[row][column]= 'W';
 
                     }else{
                         printf("%c\t",BOARD[row].POS[column].TOON);\
@@ -538,7 +538,7 @@ void printboard(){
                     cartoon=DEVIL;
                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
                         printf("%c(C)\t",BOARD[row].POS[column].TOON);
-                        sender[row][column]= BOARD[row].POS[column].TOON;
+                        sender[row][column]= 'X';
                     }else{
                         printf("%c\t",BOARD[row].POS[column].TOON);
                         sender[row][column]= BOARD[row].POS[column].TOON;
@@ -548,7 +548,7 @@ void printboard(){
                     cartoon=TWEETY;
                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
                         printf("%c(C)\t",BOARD[row].POS[column].TOON);
-                        sender[row][column]= BOARD[row].POS[column].TOON;
+                        sender[row][column]= 'Z';
                     }else{
                         printf("%c\t",BOARD[row].POS[column].TOON);
                         sender[row][column]= BOARD[row].POS[column].TOON;
@@ -558,7 +558,7 @@ void printboard(){
                     cartoon=MARVIN;
                     if(thread[cartoon].pos_x==row && thread[cartoon].pos_y==column && thread[cartoon].CARROT){
                         printf("%c(C)\t",BOARD[row].POS[column].TOON);
-                        sender[row][column]= BOARD[row].POS[column].TOON;
+                        sender[row][column]= 'Y';
                     }else{
                         printf("%c\t",BOARD[row].POS[column].TOON);
                         sender[row][column]= BOARD[row].POS[column].TOON;
@@ -569,35 +569,35 @@ void printboard(){
                     printf("%c\t",BOARD[row].POS[column].TOON);
                     sender[row][column]= BOARD[row].POS[column].TOON;
                 }
-                myclass.cppReturnAnswer(QVariant(BOARD[0].POS[0].TOON));
-                myclass.cppReturnAnswer0(QVariant(BOARD[0].POS[1].TOON));
-                myclass.cppReturnAnswer1(QVariant(BOARD[0].POS[2].TOON));
-                myclass.cppReturnAnswer2(QVariant(BOARD[0].POS[3].TOON));
-                myclass.cppReturnAnswer3(QVariant(BOARD[0].POS[4].TOON));
+                myclass.cppReturnAnswer(QVariant(sender[0][0]));
+                myclass.cppReturnAnswer0(QVariant(sender[0][1]));
+                myclass.cppReturnAnswer1(QVariant(sender[0][2]));
+                myclass.cppReturnAnswer2(QVariant(sender[0][3]));
+                myclass.cppReturnAnswer3(QVariant(sender[0][4]));
 
-                myclass.cppReturnAnswer4(QVariant(BOARD[1].POS[0].TOON));
-                myclass.cppReturnAnswer5(QVariant(BOARD[1].POS[1].TOON));
-                myclass.cppReturnAnswer6(QVariant(BOARD[1].POS[2].TOON));
-                myclass.cppReturnAnswer7(QVariant(BOARD[1].POS[3].TOON));
-                myclass.cppReturnAnswer8(QVariant(BOARD[1].POS[4].TOON));
+                myclass.cppReturnAnswer4(QVariant(sender[1][0]));
+                myclass.cppReturnAnswer5(QVariant(sender[1][1]));
+                myclass.cppReturnAnswer6(QVariant(sender[1][2]));
+                myclass.cppReturnAnswer7(QVariant(sender[1][3]));
+                myclass.cppReturnAnswer8(QVariant(sender[1][4]));
 
-                myclass.cppReturnAnswer9(QVariant(BOARD[2].POS[0].TOON));
-                myclass.cppReturnAnswer10(QVariant(BOARD[2].POS[1].TOON));
-                myclass.cppReturnAnswer11(QVariant(BOARD[2].POS[2].TOON));
-                myclass.cppReturnAnswer12(QVariant(BOARD[2].POS[3].TOON));
-                myclass.cppReturnAnswer13(QVariant(BOARD[2].POS[4].TOON));
+                myclass.cppReturnAnswer9(QVariant(sender[2][0]));
+                myclass.cppReturnAnswer10(QVariant(sender[2][1]));
+                myclass.cppReturnAnswer11(QVariant(sender[2][2]));
+                myclass.cppReturnAnswer12(QVariant(sender[2][3]));
+                myclass.cppReturnAnswer13(QVariant(sender[2][4]));
 
-                myclass.cppReturnAnswer14(QVariant(BOARD[3].POS[0].TOON));
-                myclass.cppReturnAnswer15(QVariant(BOARD[3].POS[1].TOON));
-                myclass.cppReturnAnswer16(QVariant(BOARD[3].POS[2].TOON));
-                myclass.cppReturnAnswer17(QVariant(BOARD[3].POS[3].TOON));
-                myclass.cppReturnAnswer18(QVariant(BOARD[3].POS[4].TOON));
+                myclass.cppReturnAnswer14(QVariant(sender[3][0]));
+                myclass.cppReturnAnswer15(QVariant(sender[3][1]));
+                myclass.cppReturnAnswer16(QVariant(sender[3][2]));
+                myclass.cppReturnAnswer17(QVariant(sender[3][3]));
+                myclass.cppReturnAnswer18(QVariant(sender[3][4]));
 
-                myclass.cppReturnAnswer19(QVariant(BOARD[4].POS[0].TOON));
-                myclass.cppReturnAnswer20(QVariant(BOARD[4].POS[1].TOON));
-                myclass.cppReturnAnswer21(QVariant(BOARD[4].POS[2].TOON));
-                myclass.cppReturnAnswer22(QVariant(BOARD[4].POS[3].TOON));
-                myclass.cppReturnAnswer23(QVariant(BOARD[4].POS[4].TOON));
+                myclass.cppReturnAnswer19(QVariant(sender[4][0]));
+                myclass.cppReturnAnswer20(QVariant(sender[4][1]));
+                myclass.cppReturnAnswer21(QVariant(sender[4][2]));
+                myclass.cppReturnAnswer22(QVariant(sender[4][3]));
+                myclass.cppReturnAnswer23(QVariant(sender[4][4]));
 
         }
 
