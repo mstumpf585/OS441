@@ -185,6 +185,8 @@ void print_board_horizontal(int toon_pos[]){
             myclass.cppReturnAnswer42(sender2[1][8]);
             myclass.cppReturnAnswer43(sender2[1][9]);
 
+
+
         }
     }
 }
@@ -219,11 +221,21 @@ void toon_signal_P2(ThreadDataP2 *toon){
                             strcpy(SHAREDP2.WINNER,"IT IS A TIE!");
                         }
                         printf("\n WINNER = %s\n",SHAREDP2.WINNER);
+
                         fprintf(output,"\n WINNER = %s\n",SHAREDP2.WINNER);
+
+
+                        printf("\n WINNER = yourmom \n");
+
+                        myclass.cppReturnAnswer46(QVariant(SHAREDP2.WINNER));
 
 
                 }
             }else{
+
+///////////////skip because we fucked up
+                myclass.cppReturnAnswer45(SHAREDP2.FROZEN[toon->id]);
+
                     if(!SHAREDP2.FROZEN[toon->id]){
                         toon->position++;
                         SHAREDP2.TOON_POSITION[toon->id]=toon->position;
@@ -510,7 +522,7 @@ void toon_signal(ThreadData *toon){
                 SHARED.FINISH_LINE = 0;
 
             } else {
-/////////////////////////////////////////////////////////////////////////////
+
                 toon->copy_FINISH_LINE = SHARED.FINISH_LINE = 1;
                 globalPause = 1;
                 myclass.cppReturnAnswer44(1);
@@ -872,8 +884,18 @@ int main(int argc, char *argv[])
     QObject::connect(&myclass, SIGNAL(cppReturnAnswer43(QVariant)),
                          window, SLOT(qmlUpdate44(QVariant)));
 
+    // does nothing
     QObject::connect(&myclass, SIGNAL(cppReturnAnswer44(QVariant)),
                          window, SLOT(qmlUpdate45(QVariant)));
+
+    //for shooter
+    QObject::connect(&myclass, SIGNAL(cppReturnAnswer45(QVariant)),
+                         window, SLOT(qmlUpdate46(QVariant)));
+
+    //for text
+    QObject::connect(&myclass, SIGNAL(cppReturnAnswer46(QVariant)),
+                         window, SLOT(qmlUpdate47(QVariant)));
+
 
 
     output = fopen("/tmp/output.txt", "w+");
